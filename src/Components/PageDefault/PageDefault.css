@@ -1,0 +1,40 @@
+@font-face {
+    font-family: 'garlicha';
+    src: url('../../../public/font/garlicha/Garlicha.ttf');
+}
+
+.font-garlicha {
+    font-family: garlicha;
+}
+
+.border-footer {
+    border-color: black;
+}
+
+.menu-hiden {
+    display: flex;
+    justify-content: end;
+    z-index: -1;
+    margin-right: -200px;
+}
+
+.menu-show {
+    display: flex;
+    justify-content: end;
+    z-index: 1;
+    animation: show-menu 0.5s ease-out;
+}
+
+@keyframes show-menu {
+    0%{
+        margin-right: -175px;
+    }
+    100%{
+        margin-right: 0px;
+    }
+}
+
+.list-menu {
+    list-style: none;
+}
+

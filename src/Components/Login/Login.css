@@ -1,0 +1,31 @@
+.div-form-login {
+    height: 56vh;
+}
+.form-login {
+    width: 60%;
+    text-align: center;
+}
+.input-form-login {
+    width: 100%;
+    display: block;
+    border: none;
+    border-bottom: 1px solid black;
+    outline: 0;
+}
+.input-form-login::placeholder {
+    color: black;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 5px;
+    color: white;
+    background-color: black;
+    border: none;
+    border-radius: 10px;
+}
+.btn-login:hover {
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+}
