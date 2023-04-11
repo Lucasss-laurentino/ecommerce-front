@@ -1,0 +1,17 @@
+.scroll-list-categories {
+    overflow-y: auto;
+}
+.btn-edit {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: white;
+    border: none;
+    color: blue;
+}
+.btn-delete {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: white;
+    border: none;
+    color: red;
+}

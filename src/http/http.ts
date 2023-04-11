@@ -10,11 +10,16 @@ export const http = axios.create({
 
 });
 
-// Adiciona um interceptador na resposta
-http.interceptors.response.use(function (response) {
+// Adiciona um interceptador na requisição
+http.interceptors.request.use(function (config) {
 
-    // Faz alguma coisa com os dados de resposta
-    return response;
+    const token = localStorage.getItem('token');
+
+    if(token && config.headers){
+        config.headers.Authorization = `Bearer ${token}`
+    }
+
+    return config;
 
   }, function (error) {
 

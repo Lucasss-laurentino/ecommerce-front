@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CreateUser } from './Components/CreateUser/Index';
 import Login from './Components/Login/Index';
 import { PageDefault } from './Components/PageDefault/Index';
+import { CategoryProvider } from './Contexts/CategoryContext';
 import { CreateUserProvider } from './Contexts/CreateUserContext';
 import { LoginProvider } from './Contexts/LoginContext';
 import { MenuContext, MenuContextProvider } from './Contexts/MenuContext';
@@ -13,6 +14,7 @@ export default function AppRoutes() {
         <CreateUserProvider>
             <LoginProvider>
                 <MenuContextProvider>
+                    <CategoryProvider>
                     <Router>
                         <Routes>
                             <Route path='/' element={<PageDefault />}>
@@ -22,6 +24,7 @@ export default function AppRoutes() {
                             </Route>
                         </Routes>
                     </Router>
+                    </CategoryProvider>
                 </MenuContextProvider>
             </LoginProvider>
         </CreateUserProvider>

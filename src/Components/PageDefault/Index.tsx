@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { CategoryContext } from '../../Contexts/CategoryContext';
 import { LoginContext } from '../../Contexts/LoginContext';
 import { MenuContext } from '../../Contexts/MenuContext';
 import ModalCategory from '../ModalCreateCategory/Index';
@@ -13,6 +14,8 @@ export const PageDefault = () => {
 
     const { logout, validateToken, user } = useContext(LoginContext);
 
+    const { categories, getCategories } = useContext(CategoryContext);
+
     /* Mostrar ou esconder menu */
     const animationMenu = () => {
 
@@ -24,8 +27,8 @@ export const PageDefault = () => {
 
 
         validateToken();
+        getCategories();
 
-        //console.log(user)
 
     }, []);
 
