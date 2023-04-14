@@ -5,9 +5,11 @@ import SubCategory from "../types/SubCategory";
 
 type CategoryType = {
     categories: Category[],
+    category: Category | undefined,
     category_default: Category | undefined,
     createCategory: (category: any) => void,
     getCategories: () => void,
+    getCategory: (id: number) => void, // string porque vem de um sessionStorage
     deleteCategory: (id: number) => void,
     categoryDefault: (id: number) => void,
     getCategoryDefault: () => void,
@@ -20,6 +22,7 @@ export const CategoryProvider = ({children}: {children: JSX.Element}) => {
 
     const [categories, setCategories] = useState<Category[]>([]);
     const [category_default, setCategory_default] = useState<Category>();
+    const [category, setCategory] = useState<Category | undefined>();
 
     const createCategory = (category: any) => {
 
@@ -44,6 +47,12 @@ export const CategoryProvider = ({children}: {children: JSX.Element}) => {
             setCategories(response.data);
         })
         
+    }
+
+    const getCategory = (id: number) => {
+        http.get(`getCategory/${id}`).then((response) => {
+            setCategory(response.data);
+        })
     }
 
     const deleteCategory = (id: number) => {
@@ -74,7 +83,7 @@ export const CategoryProvider = ({children}: {children: JSX.Element}) => {
     }
 
     return (
-        <CategoryContext.Provider value={{ categories, category_default, createCategory, getCategories, deleteCategory, categoryDefault, getCategoryDefault }}>
+        <CategoryContext.Provider value={{category, categories, category_default, createCategory, getCategories, getCategory, deleteCategory, categoryDefault, getCategoryDefault }}>
             {children}
         </CategoryContext.Provider>
     )

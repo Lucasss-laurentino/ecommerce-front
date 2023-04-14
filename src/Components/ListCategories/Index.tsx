@@ -5,12 +5,13 @@ import './ListCategories.css';
 
 export const ListCategories = () => {
 
-    const { categories } = useContext(CategoryContext);
+    const { categories, getCategory } = useContext(CategoryContext);
 
     const { getSubCategories } = useContext(SubCategoryContext);
 
     const selectCategory = (id: number) => {
 
+        getCategory(id);
         getSubCategories(id);
 
     }
