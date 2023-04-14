@@ -6,6 +6,7 @@ import { CategoryProvider } from './Contexts/CategoryContext';
 import { CreateUserProvider } from './Contexts/CreateUserContext';
 import { LoginProvider } from './Contexts/LoginContext';
 import { MenuContext, MenuContextProvider } from './Contexts/MenuContext';
+import { SubCategoryProvider } from './Contexts/SubCategoryContext';
 import { Vitrine } from './Page/Vitrine/Index';
 
 export default function AppRoutes() {
@@ -15,15 +16,17 @@ export default function AppRoutes() {
             <LoginProvider>
                 <MenuContextProvider>
                     <CategoryProvider>
-                    <Router>
-                        <Routes>
-                            <Route path='/' element={<PageDefault />}>
-                                <Route path='/' element={<Vitrine />} />
-                                <Route path='login' element={<Login />} />
-                                <Route path='createUser' element={<CreateUser />} />
-                            </Route>
-                        </Routes>
-                    </Router>
+                        <SubCategoryProvider>
+                            <Router>
+                                <Routes>
+                                    <Route path='/' element={<PageDefault />}>
+                                        <Route path='/' element={<Vitrine />} />
+                                        <Route path='login' element={<Login />} />
+                                        <Route path='createUser' element={<CreateUser />} />
+                                    </Route>
+                                </Routes>
+                            </Router>
+                        </SubCategoryProvider>
                     </CategoryProvider>
                 </MenuContextProvider>
             </LoginProvider>

@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'garlicha';
+    src: url('../../../public/font/garlicha/Garlicha.ttf');
+}
+
+.border-list-categories {
+    overflow-x: auto;
+    margin-top: 10px;
+    border: none;
+    border-top: 1px solid rgb(182, 179, 179);
+    border-bottom: 1px solid rgb(182, 179, 179);
+}

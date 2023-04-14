@@ -10,7 +10,7 @@ interface Props {
 
 export default function ModalCategory({ modalCategory, setModalCategory }: Props) {
 
-    const { categories, createCategory } = useContext(CategoryContext);
+    const { categories, createCategory, deleteCategory, categoryDefault } = useContext(CategoryContext);
 
     const [name, setName] = useState<string>('');
     const [imageOne, setImageOne] = useState<File | null>(null);
@@ -57,7 +57,6 @@ export default function ModalCategory({ modalCategory, setModalCategory }: Props
     }
 
     return (
-
         <Modal
             show={modalCategory}
             size="lg"
@@ -73,10 +72,8 @@ export default function ModalCategory({ modalCategory, setModalCategory }: Props
                 {/* Categorias existentes */}
                 <ul className='scrol-list-categories'>
                     {categories && categories.map((category) =>
-
                         <li key={category?.id} className="d-flex justify-content-between">
                             <p className='m-0'>{category?.name}</p>
-
                             <div className="container d-flex align-items-center justify-content-end">
                                 <button className='btn-edit'>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -84,37 +81,28 @@ export default function ModalCategory({ modalCategory, setModalCategory }: Props
                                         <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                                     </svg>
                                 </button>
-                                <button className='btn-delete'>
+                                <button className='btn-delete' onClick={() => deleteCategory(category.id)}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                                     </svg>
                                 </button>
+                                <button className={category.default ? 'bg-white border border-white text-success text-decoration-underline' : 'bg-white border border-white text-muted'} onClick={() => categoryDefault(category.id)}>Default</button>
                             </div>
                         </li>
-
                     )}
                 </ul>
-
                 {/* form categoria */ }
                 <hr/>
                 <div className="container d-flex justify-content-center">
-
                     <form onSubmit={handleSubmit}>
                         <input type="text" className='input-form-login' value={name} onChange={(value) => setName(value.target.value)} placeholder='nome da categoria'/>
                         <input type="file" className='form-control my-4' accept='image/*' onChange={selectImageOne}/>
                         <input type="file" className='form-control my-4' accept='image/*' onChange={selectImageTwo}/>
                         <button type='submit' className='btn-login'>Cadastrar</button>
                     </form>
-
                 </div>
-
-
-
             </Modal.Body>
         </Modal>
-
-
     )
-
 }

@@ -1,21 +1,35 @@
+import { useContext, useEffect } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
+import { CategoryContext } from '../../Contexts/CategoryContext';
 
 export const Carrousel = () => {
 
+    const {getCategoryDefault, category_default} = useContext(CategoryContext);
+
+    useEffect(() => {
+
+        getCategoryDefault();
+
+    }, [])
+
 
     return (
-        <Carousel interval={3000}>
+        <Carousel interval={2000}>
             <Carousel.Item>
                 <img
-                    className='d-block img-fluid size-image'
-                    src='../../../public/img/Banner1.png'
-                    alt="First slide" />
+                    src={category_default?.banner1}
+                    alt="First slide"
+                    width='100%;'
+                    height={'250'}
+                />
             </Carousel.Item>
             <Carousel.Item>
                 <img
-                    className='d-block img-fluid size-image'
-                    src=''
-                    alt="Third slide" />
+                    src={category_default?.banner2}
+                    alt="Third slide" 
+                    width='100%;'
+                    height={'250'}
+                />
             </Carousel.Item>
         </Carousel>
     );
