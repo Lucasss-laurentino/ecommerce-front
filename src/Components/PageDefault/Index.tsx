@@ -4,6 +4,7 @@ import { CategoryContext } from '../../Contexts/CategoryContext';
 import { LoginContext } from '../../Contexts/LoginContext';
 import { MenuContext } from '../../Contexts/MenuContext';
 import ModalCategory from '../ModalCreateCategory/Index';
+import { ModalCreateProduct } from '../ModalCreateProduct/Index';
 import { ModalCreateSubCategory } from '../ModalCreateSubCategory/Index';
 import './PageDefault.css';
 
@@ -18,6 +19,8 @@ export const PageDefault = () => {
     const { logout, validateToken, user } = useContext(LoginContext);
 
     const { categories, getCategories } = useContext(CategoryContext);
+
+    const [modalCreateProduct, setModalCreateProduct] = useState<boolean>(false);
 
     /* Mostrar ou esconder menu */
     const animationMenu = () => {
@@ -48,6 +51,11 @@ export const PageDefault = () => {
             <ModalCreateSubCategory
                 modalSubCategory={modalSubCategory}
                 setModalSubCategory={() => setModalSubCategory(false)}
+            />
+
+            <ModalCreateProduct
+                modalCreateProduct={modalCreateProduct}
+                setModalCreateProduct={() => setModalCreateProduct(false)}
             />
 
             { /* Navbar */}
@@ -122,6 +130,11 @@ export const PageDefault = () => {
                                             <li className="list-menu my-3">
                                                 <button className='d-flex p-0 justify-content-between align-items-center bg-transparent borda-input-menu text-decoration-none text-dark' onClick={() => setModalSubCategory(true)}>
                                                     <p className='m-0 text-decoration-underline'>Cadastrar sub categoria</p>
+                                                </button>
+                                            </li>
+                                            <li className="list-menu my-3">
+                                                <button className='d-flex p-0 justify-content-between align-items-center bg-transparent borda-input-menu text-decoration-none text-dark' onClick={() => setModalCreateProduct(true)}>
+                                                    <p className='m-0 text-decoration-underline'>Cadastrar Produto</p>
                                                 </button>
                                             </li>
                                         </>

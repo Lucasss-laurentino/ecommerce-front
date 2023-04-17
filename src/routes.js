@@ -5,7 +5,8 @@ import { PageDefault } from './Components/PageDefault/Index';
 import { CategoryProvider } from './Contexts/CategoryContext';
 import { CreateUserProvider } from './Contexts/CreateUserContext';
 import { LoginProvider } from './Contexts/LoginContext';
-import { MenuContext, MenuContextProvider } from './Contexts/MenuContext';
+import { MenuContextProvider } from './Contexts/MenuContext';
+import { ProductProvider } from './Contexts/ProductContext';
 import { SubCategoryProvider } from './Contexts/SubCategoryContext';
 import { Vitrine } from './Page/Vitrine/Index';
 
@@ -17,6 +18,7 @@ export default function AppRoutes() {
                 <MenuContextProvider>
                     <CategoryProvider>
                         <SubCategoryProvider>
+                            <ProductProvider>
                             <Router>
                                 <Routes>
                                     <Route path='/' element={<PageDefault />}>
@@ -26,6 +28,7 @@ export default function AppRoutes() {
                                     </Route>
                                 </Routes>
                             </Router>
+                            </ProductProvider>
                         </SubCategoryProvider>
                     </CategoryProvider>
                 </MenuContextProvider>

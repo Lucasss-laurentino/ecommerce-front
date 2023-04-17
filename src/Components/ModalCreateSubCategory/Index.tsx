@@ -45,12 +45,14 @@ export const ModalCreateSubCategory = ({ modalSubCategory, setModalSubCategory }
     }
 
     const returnListCategory = () => {
+
         setClassListCategories('d-block');
         setClassListSubCategories('d-none');
         setTitleForm('Escolha uma categoria');
         setClassFormSubCategory("container d-none justify-content-center");
         setBtnReturn('d-none')
         reset();
+    
     }
 
     const sendDataSubCategory = (e: any) => {
@@ -79,7 +81,7 @@ export const ModalCreateSubCategory = ({ modalSubCategory, setModalSubCategory }
         >
             <Modal.Header closeButton onHide={closeModal}>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    <p className="m-0 color">{titleForm}</p>
+                    <p className="m-0 color font-garlicha h1">{titleForm}</p>
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>

@@ -65,7 +65,7 @@ export default function ModalCategory({ modalCategory, setModalCategory }: Props
         >
             <Modal.Header closeButton onHide={setModalCategory}>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    <p className="m-0 color">Cadastre uma categoria</p>
+                    <p className="m-0 color font-garlicha h1">Cadastre uma categoria</p>
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
