@@ -8,7 +8,7 @@ export const Carrousel = () => {
 
     useEffect(() => {
 
-            getCategoryDefault();
+        getCategoryDefault();
 
     }, []);
 
