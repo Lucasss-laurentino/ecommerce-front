@@ -2,6 +2,12 @@
     font-family: 'garlicha';
     src: url('../../../public/font/garlicha/Garlicha.ttf');
 }
+.borda-btn {
+
+    border: none;
+    border-bottom: 1px solid black;
+
+}
 
 .font-garlicha {
     font-family: garlicha;

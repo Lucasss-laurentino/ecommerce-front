@@ -1,0 +1,11 @@
+export default interface Address {
+    'id': number,
+    'cep': string,
+    'state': string,
+    'city': string,
+    'district': string,
+    'street': string,
+    'number': number,
+    'user_id': number,
+    'default': string,
+}
