@@ -24,9 +24,11 @@ export const SubCategoryProvider = ({children}: {children: JSX.Element}) => {
     }
 
     const createSubCategory = (subCategoryName: string, category_id: number) => {
+
         http.post('createSubCategory', { subCategoryName, category_id }).then((response) => {
             setSubCategories(response.data)
         })
+
     }
 
     const deleteSubCategory = (id: number) => {

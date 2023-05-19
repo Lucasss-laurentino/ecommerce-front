@@ -33,7 +33,6 @@ export const ModalCreateSubCategory = ({ modalSubCategory, setModalSubCategory }
     const showFormCreateSubCategories = (id: number) => {
 
         getSubCategories(id);
-
         setCategory_id(id);
 
         setClassListCategories('d-none');
@@ -41,7 +40,7 @@ export const ModalCreateSubCategory = ({ modalSubCategory, setModalSubCategory }
         setClassListSubCategories('d-block')
         setTitleForm('Cadastre uma sub categoria');
         setBtnReturn('btn-sm bg-white border border-white');
-
+        
     }
 
     const returnListCategory = () => {
@@ -105,7 +104,7 @@ export const ModalCreateSubCategory = ({ modalSubCategory, setModalSubCategory }
                     <ul className={classListSubCategories}>
                         {subCategories && subCategories.map((subCategory) =>
                             <li key={subCategory?.id} className="d-flex justify-content-between h5 list-categories-hover">
-                                <button className='m-0 bg-white border border-white' onClick={() => showFormCreateSubCategories(subCategory.id)}>{subCategory?.name}</button>
+                                <button className='m-0 bg-white border border-white'>{subCategory?.name}</button>
 
                                 <div className="container d-flex align-items-center justify-content-end">
                                     <button className='btn-edit'>

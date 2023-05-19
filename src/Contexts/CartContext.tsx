@@ -1,73 +1,125 @@
-import { createContext, useState } from "react";
+import { createContext, SetStateAction, useEffect, useState} from "react";
 import { http } from "../http/http";
 import Product from "../types/Product";
+import Cart from "../types/Cart";
 
 type CartType = {
 
     total: number,
-    productsThisUser: Product[][],
-    productsSelected: Product[] | undefined,
-    selectProduct: (product: Product) => void,
-    getProductsThisUser: () => void,
-
+    setTotal: React.Dispatch<SetStateAction<number>>,
+    carts: Cart[],
+    getCarts: () => void,
+    selectProduct: (cart: Cart) => void,
+    moreQuantity: (cart: Cart) => void,
+    anyLessQuantity: (cart: Cart) => void,
+    resetQuantity: () => void,
+    deleteCart: (cart: Cart) => void,
 }
 
 export const CartContext = createContext<CartType>(null!);
 
-export const CartProvider = ({children}: {children: JSX.Element}) => {
-
-    const [productsThisUser, setProductsThisUser] = useState<Product[][]>([]);
-
-    const [productsSelected, setProductsSelected] = useState<Product[]>([]);
+export const CartProvider = ({ children }: { children: JSX.Element }) => {
 
     const [total, setTotal] = useState<number>(0);
+    const [carts, setCarts] = useState<Cart[]>([]);
 
-    const selectProduct = (product: Product) => {
+    useEffect(() => {
 
-        const element = document.getElementById(product.name);
+        carts.map((cart) => {
+            if(cart.selected){
+                setTotal(Number(cart.price_product) * cart.quantity);
+            }
+        })
 
-        if(element?.getAttribute('checked')){
+    }, [carts])
 
-            element.removeAttribute('checked');
+    const getCarts = () => {
 
-            productsSelected.map((productSelected, index) => {
+        const user_id = localStorage.getItem('user');
 
-                if(productSelected.id === product.id){
+        http.get(`getCarts/${user_id}`).then((response) => {
+            setCarts([...response.data]);
+        })
 
-                    productsSelected.splice(index, 1);
+    }
 
-                    setTotal(total - Number(productSelected.price));
+    const selectProduct = (cart: Cart) => {
 
-                }
+        const user_id = localStorage.getItem('user');
 
+        const checkbox = document.getElementById(cart.name_product);
+
+        if(checkbox?.getAttribute('checked')){
+            
+            checkbox.removeAttribute('checked');
+
+            http.post('checkCart', {selected: false, id_cart: cart.id, user_id: user_id}).then((response) => {
+                setCarts([...response.data]);
             })
-                        
+
+            setTotal(total - Number(cart.price_product) * cart.quantity);
+
         } else {
 
-            element?.setAttribute('checked', 'checked')
+            checkbox?.setAttribute('checked', 'checked');
 
-            setProductsSelected([...productsSelected, product]);
+            http.post('checkCart', {selected: true, id_cart: cart.id, user_id: user_id}).then((response) => {
+                setCarts([...response.data]);
+            })
 
-            setTotal(total + Number(product.price));
-            
         }
 
 
     }
 
-    const getProductsThisUser = () => {
+    const moreQuantity = (cart: Cart) => {
+        
+        const user_id = localStorage.getItem('user');
 
-        const id = localStorage.getItem('user');
-
-        http.get(`getProductsThisUser/${id}`).then((response) => {
-            setProductsThisUser(response.data);
+        http.post('moreQuantity', {user_id: user_id, product_id: cart.products_id }).then((response) => {
+            setCarts([...response.data]);
         })
 
     }
 
+    const anyLessQuantity = (cart: Cart) => {
+        
+        const user_id = localStorage.getItem('user');
+
+        http.post('anyLessQuantity', {user_id: user_id, product_id: cart.products_id }).then((response) => {
+            setCarts([...response.data]);
+        })
+
+    }
+
+    const resetQuantity = () => {
+        
+        const user_id = localStorage.getItem('user');
+
+        http.post('resetQuantity', {user_id: user_id}).then((response) => {
+
+            setCarts([...response.data]);
+
+        })
+    
+    }
+
+    const deleteCart = (cart: Cart) => {
+        
+        const cart_id = cart.products_id;
+        const user_id = localStorage.getItem('user');
+        
+        http.delete(`deleteCart/${cart_id}/${user_id}`).then((response) => {
+            setCarts([...response.data]);
+        })
+    
+    }
+
     return (
 
-        <CartContext.Provider value={{ getProductsThisUser, productsThisUser, selectProduct, productsSelected, total}}>
+        <CartContext.Provider value={{
+            total, setTotal, carts, getCarts, selectProduct, moreQuantity, anyLessQuantity, resetQuantity, deleteCart
+        }}>
             {children}
         </CartContext.Provider>
 

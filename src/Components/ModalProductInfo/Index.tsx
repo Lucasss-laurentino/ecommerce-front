@@ -105,6 +105,7 @@ export const ModalProductInfo = ({ modalProductInfo, setModalProductInfo, produc
             const userId = localStorage.getItem('user');
 
             http.post('addToCart', { productInfo, sizeSelected, userId }).then((response) => {
+                
                 if (response.data === false) {
                     setError('Você já possui esse produto no seu carrinho');
                     setProductCart(false);
@@ -112,6 +113,7 @@ export const ModalProductInfo = ({ modalProductInfo, setModalProductInfo, produc
                     setError('');
                     setProductCart(true);
                 }
+                
             })
 
         } else {

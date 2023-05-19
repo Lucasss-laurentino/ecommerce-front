@@ -29,3 +29,21 @@
     background-color: white;
     border: 1px solid black;
 }
+
+.btn-google {
+    padding: 6px;
+    color: white;
+    background-color: #C23321;
+    border-radius: 8px;
+}
+
+.icon-g {
+    border-right: 1px solid white;
+}
+
+.btn-facebook {
+    padding: 6px;
+    color: white;
+    background-color: #2D4373;
+    border-radius: 8px;
+}

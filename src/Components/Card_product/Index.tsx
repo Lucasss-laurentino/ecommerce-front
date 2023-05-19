@@ -41,7 +41,7 @@ export const Card_product = ({ product }: Props) => {
             />
 
 
-            <div className="card-product col-8 col-sm-5 col-lg-4 text-center m-2">
+            <div className="card-product col-7 col-sm-4 col-md-3 col-lg-3 text-center m-2">
                 <div className="card-header bg-white">
                     {user?.adm ?
                     <div className="d-flex justify-content-end">
