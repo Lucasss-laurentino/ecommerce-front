@@ -1,7 +1,7 @@
 # Loja Virtual
 
 
-<p>Esse projeto consome essa <a target='_blank' href='https://github.com/Lucasss-laurentino/barbearia-api'>api</a>
+<p>Esse projeto consome essa <a target='_blank' href='https://github.com/Lucasss-laurentino/api-ecommerce'>api</a>
 
 ### Tecnologias utilizadas
 
