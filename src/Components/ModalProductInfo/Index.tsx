@@ -1,5 +1,4 @@
 import { Carousel, Modal } from 'react-bootstrap';
-import Product from '../../types/Product';
 import './ModalProductInfo.css';
 import InputMask from 'react-input-mask';
 import { useContext, useEffect, useState } from 'react';
@@ -7,14 +6,11 @@ import { http } from '../../http/http';
 import { SizeContext } from '../../Contexts/SizeContext';
 import Size from '../../types/Size';
 import { LoginContext } from '../../Contexts/LoginContext';
+import { ModalProductInfoContext } from '../../Contexts/ModalProductInfoContext';
 
-interface Props {
-    modalProductInfo: boolean,
-    setModalProductInfo: () => void,
-    productInfo: Product,
-}
+export const ModalProductInfo = () => {
 
-export const ModalProductInfo = ({ modalProductInfo, setModalProductInfo, productInfo }: Props) => {
+    const { modalProductInfo, setModalProductInfo, productInfo } = useContext(ModalProductInfoContext);
 
     const { getSizes, sizes, sizeSelect, sizeSelected } = useContext(SizeContext);
 
@@ -24,7 +20,9 @@ export const ModalProductInfo = ({ modalProductInfo, setModalProductInfo, produc
 
     useEffect(() => {
 
-        getSizes(productInfo.id);
+        if(productInfo){
+            getSizes(productInfo.id);
+        }
 
     }, [])
 
@@ -134,7 +132,7 @@ export const ModalProductInfo = ({ modalProductInfo, setModalProductInfo, produc
                 centered
 
             >
-                <Modal.Header closeButton onHide={setModalProductInfo} className='border border-white'>
+                <Modal.Header closeButton onHide={() => setModalProductInfo(false)} className='border border-white'>
                     <Modal.Title id="contained-modal-title-vcenter">
                         <h5 className='font-garlicha h1'>{productInfo?.name}</h5>
                     </Modal.Title>

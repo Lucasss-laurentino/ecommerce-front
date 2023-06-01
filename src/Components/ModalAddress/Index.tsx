@@ -111,9 +111,9 @@ export const ModalAddress = ({ modalAddress, setModalAddress }: Props) => {
                     <div className="container">
                         {addresses?.map((addresse) => {
                             return (
-                                <ul className='scroll_address'>
+                                <ul className='scroll_address'  key={addresse.id}>
 
-                                    <li key={addresse.id}>
+                                    <li>
                                         <div className="d-flex justify-content-end">
                                             <button type='button' className='text-danger border border-white bg-white' onClick={() => deleteAddress(addresse.id)}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" className="bi bi-trash3-fill" viewBox="0 0 16 16">
@@ -244,7 +244,7 @@ export const ModalAddress = ({ modalAddress, setModalAddress }: Props) => {
                             }
                         </div>
                         <div className="container">
-                            <button type="submit">
+                            <button type="submit" className="btn-login">
                                 Cadastrar
                             </button>
                         </div>

@@ -14,6 +14,8 @@ import { SizeProvider } from './Contexts/SizeContext';
 import { SubCategoryProvider } from './Contexts/SubCategoryContext';
 import { Vitrine } from './Page/Vitrine/Index';
 import VitrineProduto from './Page/VitrineProduto/Index';
+import { ModalProductInfoProvider } from './Contexts/ModalProductInfoContext';
+import { Password_reset } from './Components/Password_reset/Index';
 
 export default function AppRoutes() {
 
@@ -27,6 +29,7 @@ export default function AppRoutes() {
                                 <SizeProvider>
                                     <AddressProvider>
                                         <CartProvider>
+                                            <ModalProductInfoProvider>
                                             <Router>
                                                 <Routes>
                                                     <Route path='/' element={<PageDefault />}>
@@ -34,10 +37,12 @@ export default function AppRoutes() {
                                                         <Route path='login' element={<Login />} />
                                                         <Route path='createUser' element={<CreateUser />} />
                                                         <Route path='/cart' element={<Cart />} />
-                                                        <Route path='/:subcategory' element={<VitrineProduto />}/>
+                                                        <Route path='/:subCategoryName' element={<VitrineProduto />}/>
+                                                        <Route path='password_reset' element={<Password_reset />} />
                                                     </Route>
                                                 </Routes>
                                             </Router>
+                                            </ModalProductInfoProvider>
                                         </CartProvider>
 
                                     </AddressProvider>

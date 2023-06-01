@@ -20,8 +20,8 @@ export const CreateUserProvider = ({children}: {children: JSX.Element}) => {
 
         http.post('/createUser', { emailCreate, passwordCreate }).then((response) => {
 
-            sessionStorage.setItem('user', response.data[0].id);
-            sessionStorage.setItem('token', response.data[1]);
+            localStorage.setItem('user', response.data[0].id);
+            localStorage.setItem('token', response.data[1]);
 
             window.location.href = '/';
 

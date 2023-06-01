@@ -4,6 +4,7 @@ import { useContext, useState } from 'react';
 import { ModalProductInfo } from '../ModalProductInfo/Index';
 import { ProductContext } from '../../Contexts/ProductContext';
 import { LoginContext } from '../../Contexts/LoginContext';
+import { ModalProductInfoContext } from '../../Contexts/ModalProductInfoContext';
 
 
 interface Props {
@@ -14,20 +15,15 @@ interface Props {
 
 export const Card_product = ({ product }: Props) => {
 
-    const [modalProductInfo, setModalProductInfo] = useState<boolean>(false);
+    const { setModalProductInfo, setProductInfo} = useContext(ModalProductInfoContext);
 
     const { deleteProduct } = useContext(ProductContext);
 
     const { user } = useContext(LoginContext);
 
-    const [productInfoState, setProductInfoState] = useState<Product | undefined>();
-
-    const productInfo = (product: Product) => {
-
-        setProductInfoState(product);
-
+    const openModal = (product: Product) => {
         setModalProductInfo(true)
-
+        setProductInfo(product)
     }
 
     return (
@@ -35,9 +31,6 @@ export const Card_product = ({ product }: Props) => {
         <>
 
             <ModalProductInfo
-                modalProductInfo={modalProductInfo}
-                setModalProductInfo={() => setModalProductInfo(false)}
-                productInfo={product}
             />
 
 
@@ -69,7 +62,7 @@ export const Card_product = ({ product }: Props) => {
                     <p className="card-text color">R$ {product?.price}</p>
                 </div>
                 <div className="background-button-product">
-                    <button className="btn btn-sm py-2 text-white bg-dark w-100" onClick={() => productInfo(product)}><strong>Ver produto</strong></button>
+                    <button className="btn btn-sm py-2 text-white bg-dark w-100" onClick={() => openModal(product)}><strong>Ver produto</strong></button>
                 </div>
             </div>
         </>
