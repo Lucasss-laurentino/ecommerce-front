@@ -1,0 +1,18 @@
+.btn-responsive {
+
+    font-size: 14px;
+    border: none;
+    border-radius: 3px;
+
+}
+
+@media (max-width: 418px){
+
+    .btn-responsive {
+
+        font-size: 10px;
+    
+    }
+    
+
+}

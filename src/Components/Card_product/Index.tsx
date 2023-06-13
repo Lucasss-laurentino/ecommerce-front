@@ -58,7 +58,7 @@ export const Card_product = ({ product }: Props) => {
                     <img className="card-img-top" src={product?.imageOne} alt="Card image cap" />
                 </div>
                 <div className="card-body my-2">
-                    <p className="card-title color">{product?.name}</p>
+                    <p className="card-title color text-truncate">{product?.name}</p>
                     <p className="card-text color">R$ {product?.price}</p>
                 </div>
                 <div className="background-button-product">

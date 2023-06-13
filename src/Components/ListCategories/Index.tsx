@@ -22,7 +22,7 @@ export const ListCategories = () => {
             <ul className="list-inline my-3 d-flex">
                 {categories && categories.map((category) => 
                 <li key={category.id} className="inline-item mx-3 font-garlicha h2">
-                    <button className='bg-white border border-white' onClick={() => selectCategory(category.id)}>
+                    <button className='bg-white border border-white letterSpacing' onClick={() => selectCategory(category.id)}>
                         {category.name}
                     </button>
                 </li>
