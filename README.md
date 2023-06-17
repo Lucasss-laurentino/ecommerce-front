@@ -1,5 +1,4 @@
-# Loja Virtual
-
+# Loja de Roupas
 
 <p>Esse projeto consome essa <a target='_blank' href='https://github.com/Lucasss-laurentino/api-ecommerce'>api</a>
 
@@ -18,3 +17,16 @@
   <img alt='react' src='https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white' />
 
 </div>
+
+## Vitrine de produtos filtrados por categoria e subcategorias
+
+![ezgif com-video-to-gif](https://github.com/Lucasss-laurentino/ecommerce-front/assets/96303722/8bb9279a-9366-43dd-8f37-49b87ee9905b)
+
+## Cadastro de endereço
+![ezgif com-video-to-gif](https://github.com/Lucasss-laurentino/ecommerce-front/assets/96303722/fc3b4898-a46e-44a8-9647-08f10937be39)
+
+## Adicionar produto ao carrinho
+
+
+![ezgif com-video-to-gif](https://github.com/Lucasss-laurentino/ecommerce-front/assets/96303722/8e0d9229-67eb-4a28-b36b-b888f3613fe0)
+
