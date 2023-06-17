@@ -58,6 +58,10 @@ export default function VitrineProduto() {
             setPrevUrl(response.data.prev_page_url);
         })
 
+
+        const obj = document.getElementById('titleSubCategory')?.scrollIntoView({ behavior: "smooth"});
+
+
     }
 
     const prevPage = () => {
@@ -67,6 +71,8 @@ export default function VitrineProduto() {
             setNextUrl(response.data.next_page_url);
             setPrevUrl(response.data.prev_page_url);
         })
+
+        const obj = document.getElementById('titleSubCategory')?.scrollIntoView({ behavior: "smooth"});
 
     }
 
@@ -78,6 +84,8 @@ export default function VitrineProduto() {
             setPrevUrl(response.data.prev_page_url);
         })
 
+        const obj = document.getElementById('titleSubCategory')?.scrollIntoView({ behavior: "smooth"});
+
     }
 
     return (
@@ -88,7 +96,7 @@ export default function VitrineProduto() {
             <ModalProductInfo />
 
             <div className="container mt-5 font-garlicha">
-                <h1 className="">{subCategoryName}</h1>
+                <h1 id="titleSubCategory" className="">{subCategoryName}</h1>
             </div>
 
             <div className="container">

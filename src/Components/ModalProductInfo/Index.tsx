@@ -24,7 +24,8 @@ export const ModalProductInfo = () => {
             getSizes(productInfo.id);
         }
 
-    }, [])
+    }, [productInfo])
+
 
     const [cep, setCep] = useState<string>('');
 
@@ -62,13 +63,17 @@ export const ModalProductInfo = () => {
 
     const handleSize = (size: Size) => {
 
+        sizeSelect(size)
+
         if (sizeSelected && user) {
+
+   
 
             const previousSize = document.getElementById(sizeSelected.size);
 
             if (previousSize?.className) {
 
-                previousSize.className = 'color h5 mx-2 border hover rounded-circle py-0 px-2';
+                previousSize.className = 'bg-white text-dark h5 mx-2 border hover rounded-circle py-0 px-2';
 
             }
 
@@ -78,10 +83,12 @@ export const ModalProductInfo = () => {
 
             if (sizeMark?.className) {
                 sizeMark.className = 'text-white bg-dark h5 mx-2 border rounded-circle py-0 px-2';
+                console.log(sizeMark)
             }
 
         } else {
 
+     
             sizeSelect(size);
 
             const sizeMark = document.getElementById(size.size);
@@ -122,6 +129,12 @@ export const ModalProductInfo = () => {
 
     }
 
+    const closeModal = () => {
+         setModalProductInfo(false)
+         setProductCart(false)
+    }
+
+
     return (
 
         <>
@@ -132,7 +145,7 @@ export const ModalProductInfo = () => {
                 centered
 
             >
-                <Modal.Header closeButton onHide={() => setModalProductInfo(false)} className='border border-white'>
+                <Modal.Header closeButton onHide={closeModal} className='border border-white'>
                     <Modal.Title id="contained-modal-title-vcenter">
                         <h5 className='font-garlicha h1'>{productInfo?.name}</h5>
                     </Modal.Title>
@@ -185,7 +198,7 @@ export const ModalProductInfo = () => {
                                         <p className="text-muted d-flex mb-2">Tamanhos</p>
                                         {sizes?.map((size) => {
                                             return (
-                                                <p key={size.id} className='color h5 mx-2 border hover rounded-circle py-0 px-2' id={size.size} onClick={() => handleSize(size)}>{size.size}</p>
+                                                <p key={size.id} className='bg-white text-dark h5 mx-2 border hover rounded-circle py-0 px-2' id={size.size} onClick={() => handleSize(size)}>{size.size}</p>
                                             )
                                         })}
                                     </div>

@@ -20,7 +20,7 @@ export const SizeProvider = ({children}: {children: JSX.Element}) => {
     const getSizes = (id: number) => {
 
         http.get(`getSizeThisProduct/${id}`).then((response) => {
-            setSizes(response.data)
+           setSizes(response.data)
         })
 
     }
