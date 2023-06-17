@@ -1,5 +1,4 @@
-# Loja Virtual
-
+# Loja de Roupas
 
 <p>Esse projeto consome essa <a target='_blank' href='https://github.com/Lucasss-laurentino/api-ecommerce'>api</a>
 
