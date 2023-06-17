@@ -30,4 +30,3 @@
 
 ![ezgif com-video-to-gif](https://github.com/Lucasss-laurentino/ecommerce-front/assets/96303722/8e0d9229-67eb-4a28-b36b-b888f3613fe0)
 
-## Carrinho de produtos
