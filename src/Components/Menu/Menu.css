@@ -1,0 +1,82 @@
+.div-menu-user {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    position: absolute;
+    z-index: 3;
+}
+
+.div-menu-user > .div-lista-menu {
+    width: 40%;
+}
+
+@media (min-width: 200px) {
+    .div-menu-user > .div-lista-menu {
+        width: 70%;
+    }
+
+    .icon-responsive {
+        width: 15px;
+        height: auto;
+    }
+        
+}
+
+@media (min-width: 500px) {
+    .div-menu-user > .div-lista-menu {
+        width: 50%;
+    }
+
+    .icon-responsive {
+        width: 20px;
+        height: auto;
+    }
+        
+}
+
+.div-menu-user > .div-lista-menu > .lista-menu {
+
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+}
+
+.div-menu-user > .div-lista-menu > .lista-menu > .item-lista-menu {
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    background-color: rgba(#ffff, #ffff, #ffff, 0.5);
+
+    transform: translateX(-0%);
+    transition: 0.5s;
+    transition-delay: calc(0.1s * var(--i));
+}
+
+.div-menu-user > .div-lista-menu > .lista-menu > .item-lista-menu-escondida {
+    
+    display: flex;
+    justify-content: center;
+
+    visibility: 0;
+    opacity: 0;
+
+    transform: translateX(-70%);
+    transition: 0.5s;
+    transition-delay: calc( 0.1s * var(--i));
+
+}
+
+.item1 {
+    --i: 0;
+}
+
+.texto-login {
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+}

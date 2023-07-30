@@ -1,0 +1,95 @@
+.linha-nav-bar {
+    
+    width: 100%;
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.linha-nav-bar > .logo > .title-responsive {
+
+    text-decoration: none;
+    color: black;
+
+}
+@media (min-width: 200px) {
+
+    .linha-nav-bar > .logo > .title-responsive {
+        padding: 10px;
+        font-size: 33px;
+    }
+
+    .anime {
+        width: 30px;
+        height: 30px;
+    }
+
+    .anime-reverse {
+        width: 30px;
+        height: 30px;
+    }
+
+
+}
+
+@media (min-width: 500px) {
+
+    .linha-nav-bar > .logo > .title-responsive {
+        padding: 10px;
+        font-size: 43px;
+    }
+    .anime {
+        width: 40px;
+        height: 40px;
+    }
+
+    .anime-reverse {
+        width: 40px;
+        height: 40px;
+    }
+
+
+}
+
+.div-menu {
+
+    height: auto;
+
+}
+
+.linha-nav-bar > .div-menu > .btn-menu {
+
+    background-color: transparent;
+    border: none;
+
+}
+
+.anime {
+    animation: mudarBotao 1s ease-out alternate;
+}
+
+.anime-reverse {
+
+    animation: mudarBotaoReverso 1s ease-out alternate;
+    
+}
+
+@keyframes mudarBotao {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes mudarBotaoReverso {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
