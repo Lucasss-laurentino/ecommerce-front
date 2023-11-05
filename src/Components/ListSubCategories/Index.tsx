@@ -8,11 +8,11 @@ import { Link } from 'react-router-dom';
 
 export const ListSubCategories = () => {
 
-    const { getCategoryDefault, category_default, category } = useContext(CategoryContext);
+    const { category_default, category } = useContext(CategoryContext);
 
     const { getSubCategories, subCategories } = useContext(SubCategoryContext);
 
-    const { getProductThisCategory } = useContext(ProductContext);
+    const { getProductsThisCategory } = useContext(ProductContext);
 
     const { products } = useContext(ProductContext);
 
@@ -20,14 +20,14 @@ export const ListSubCategories = () => {
 
         if (category) {
 
-            getSubCategories(category.id);
-            getProductThisCategory(category.id);
+            getSubCategories(category._id);
+            getProductsThisCategory(category._id);
 
         } else {
 
             if (category_default) {
-                getSubCategories(category_default.id);
-                getProductThisCategory(category_default.id);
+                getSubCategories(category_default._id);
+                getProductsThisCategory(category_default._id);
             }
 
         }
@@ -37,7 +37,7 @@ export const ListSubCategories = () => {
     return (
         <>
             {subCategories?.map((subCategory) =>
-                <div className="row m-0 my-5" key={subCategory.id}>
+                <div className="row m-0 my-5" key={subCategory._id}>
                     <div className="container d-flex justify-content-between align-items-center">
                         <h2 className='font-garlicha titleSubCategory'>{subCategory.name}</h2>
                         <Link to={`/${subCategory.name}`} className='m-0 text-dark d-flex align-items-center space'>
@@ -47,8 +47,8 @@ export const ListSubCategories = () => {
                             </svg>
                         </Link>
                     </div>
-                    <div className="container d-flex roll">
-                        {products?.map((product) => product.sub_categories_id === subCategory.id && <Card_product key={product.id} product={product} />)}
+                    <div className="container d-flex roll">                        
+                        {products?.map((product) => product.sub_categories_id === subCategory._id && <Card_product key={product._id} product={product} />)}
                     </div>
 
                 </div>

@@ -4,7 +4,7 @@ import Size from "../types/Size";
 
 type SizeType = {
     sizes: Size[] | undefined,
-    getSizes: (id: number) => void,
+    getSizes: (id_products: string) => void,
     sizeSelect: (size: Size) => void,
     sizeSelected: Size | undefined,
 }
@@ -17,10 +17,9 @@ export const SizeProvider = ({children}: {children: JSX.Element}) => {
 
     const [sizeSelected, setSizeSelected] = useState<Size | undefined>();
 
-    const getSizes = (id: number) => {
-
-        http.get(`getSizeThisProduct/${id}`).then((response) => {
-           setSizes(response.data)
+    const getSizes = (id_product: string) => {
+        http.get(`getSizeThisProduct/${id_product}`).then((response) => {
+           setSizes(response.data.sizes)
         })
 
     }

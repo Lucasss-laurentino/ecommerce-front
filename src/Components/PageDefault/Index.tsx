@@ -10,17 +10,15 @@ export const PageDefault = () => {
 
     const { validateToken} = useContext(LoginContext);
 
-    const { getCategories } = useContext(CategoryContext);
+    const { categories, getCategories } = useContext(CategoryContext);
 
     useEffect(() => {
-
 
         validateToken();
         getCategories();
 
-
     }, []);
-
+    
     return (
 
         <>

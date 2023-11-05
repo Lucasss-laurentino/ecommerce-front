@@ -22,28 +22,23 @@ export const LoginProvider = ({children}: {children: JSX.Element}) => {
         const email = data.email;
         const password = data.password;
     
-        http.post('login', {email, password}).then((response) => {
+        http.post('/login', {email, password}).then((response) => {
 
-            if(response.data === false) {
-                
-                setErrorLogin('Login incorreto')
-            
-            } else {
-
-                setUser(response.data[0]);
-                localStorage.setItem('user', response.data[0].id);
-                localStorage.setItem('token', response.data[1]); 
+                localStorage.setItem('token', response.data.token); 
                 window.location.href = '/';
-            }
 
+            }).catch((response) => {
 
-        })
-    
+                setErrorLogin('Login incorreto')
+
+            })
+        
+
     }
 
     const validateToken = () => {
 
-        http.post('validateLogin', { 'user_id': localStorage.getItem('user')}).then((response) => {
+        http.post('/validateLogin').then((response) => {
             setUser(response.data)
         })
     

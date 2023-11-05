@@ -5,7 +5,6 @@ import { CategoryContext } from '../../Contexts/CategoryContext';
 import { ProductContext } from '../../Contexts/ProductContext';
 import { SubCategoryContext } from '../../Contexts/SubCategoryContext';
 import { http } from '../../http/http';
-import SubCategory from '../../types/SubCategory';
 import './ModalCreateProduct.css';
 
 interface Props {
@@ -91,7 +90,7 @@ export const ModalCreateProduct = ({modalCreateProduct, setModalCreateProduct}: 
 
     const selectCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
 
-        getSubCategories(Number(event.target.value));
+        getSubCategories(event.target.value);
 
         setCategory(event.target.value);
 
@@ -169,8 +168,8 @@ export const ModalCreateProduct = ({modalCreateProduct, setModalCreateProduct}: 
         }
     }
 
-    const createProduct = (data: any) => {
-
+    const createProduct = (data: any) => {        
+        
         if (sizes.sizeP || sizes.sizeM || sizes.sizeG || sizes.sizeGG) {
 
             const formData = new FormData();
@@ -180,59 +179,67 @@ export const ModalCreateProduct = ({modalCreateProduct, setModalCreateProduct}: 
             formData.append('price', data.price);
 
             if (sizes.sizeP) {
-                formData.append('sizeP', JSON.stringify(sizes.sizeP))
-                formData.append('quantityP', quantity.quantityP)
+                formData.append('sizeP', JSON.stringify(sizes.sizeP));
+                formData.append('quantityP', quantity.quantityP);
             }
 
             if (sizes.sizeM) {
-                formData.append('sizeM', JSON.stringify(sizes.sizeM))
-                formData.append('quantityM', quantity.quantityM)
+                formData.append('sizeM', JSON.stringify(sizes.sizeM));
+                formData.append('quantityM', quantity.quantityM);
 
             }
 
             if (sizes.sizeG) {
-                formData.append('sizeG', JSON.stringify(sizes.sizeG))
-                formData.append('quantityG', quantity.quantityG)
+                formData.append('sizeG', JSON.stringify(sizes.sizeG));
+                formData.append('quantityG', quantity.quantityG);
 
             }
 
             if (sizes.sizeGG) {
-                formData.append('sizeGG', JSON.stringify(sizes.sizeGG))
-                formData.append('quantityGG', quantity.quantityGG)
+                formData.append('sizeGG', JSON.stringify(sizes.sizeGG));
+                formData.append('quantityGG', quantity.quantityGG);
             }
 
             formData.append('category', data.category);
-            formData.append('subCategory', data.subCategory)
+            formData.append('subCategory', data.subCategory);
 
-            if (imageOne) {
-                formData.append('imageOne', imageOne);
-            }
-            if (imageTwo) {
-                formData.append('imageTwo', imageTwo);
+            if (imageOne && imageTwo) {
+                formData.append('image', imageOne);
+                formData.append('image', imageTwo);
             }
 
-            if (imageThree) {
-                formData.append('imageThree', imageThree);
+            if (imageOne && imageTwo && imageThree) {
+                formData.append('image', imageOne);
+                formData.append('image', imageTwo);
+                formData.append('image', imageThree);
             }
 
             http.request({
-                url: 'createProduct',
-                method: 'POST',
+        
+                url: '/createProduct',
+                method: 'post',
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
                 data: formData,
+        
             }).then(response => {
 
-                setProducts([...response.data[0]])
-                //changeProductsThisCategory([...response.data[0]]);                
+                setProducts([...response.data.products])
+                //changeProductsThisCategory([...response.data.products]);                
 
                 closeAndReset();
 
-            })
+            });
+            
+        
         } else {
+        
             setErrorCheckBox('Selecione pelo menos um tamanho')
+        
         }
+        
+
     }
 
     return (    
@@ -291,7 +298,7 @@ export const ModalCreateProduct = ({modalCreateProduct, setModalCreateProduct}: 
                                 <option value="">Selecione uma categoria</option>
                                 {categories?.map((category) => {
                                     return (
-                                        <option key={category.id} value={category.id}>{category.name}</option>
+                                        <option key={category._id} value={category._id}>{category.name}</option>
                                     )
                                 })}
 
@@ -310,7 +317,7 @@ export const ModalCreateProduct = ({modalCreateProduct, setModalCreateProduct}: 
                                 <option value="">Selecione uma sub categoria</option>
                                 {category && subCategories?.map((subCategory) => {
                                     return (
-                                        <option key={subCategory.id} value={subCategory.id}>{subCategory.name}</option>
+                                        <option key={subCategory._id} value={subCategory._id}>{subCategory.name}</option>
                                     )
                                 })}
 
@@ -444,6 +451,7 @@ export const ModalCreateProduct = ({modalCreateProduct, setModalCreateProduct}: 
                                 required
                                 type="file"
                                 onChange={selectImageOne}
+                                name="image"
                             />
                         </div>
 

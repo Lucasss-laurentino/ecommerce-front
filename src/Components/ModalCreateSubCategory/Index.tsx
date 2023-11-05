@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { useForm } from 'react-hook-form';
 import { CategoryContext } from '../../Contexts/CategoryContext';
@@ -20,7 +20,7 @@ export const ModalCreateSubCategory = ({ modalSubCategory, setModalSubCategory }
 
     const [classListCategories, setClassListCategories] = useState('d-block');
 
-    const [category_id, setCategory_id] = useState<number>(0);
+    const [category_id, setCategory_id] = useState<string>('');
 
     const [classFormSubCategory, setClassFormSubCategory] = useState("container d-none justify-content-center");
 
@@ -28,12 +28,22 @@ export const ModalCreateSubCategory = ({ modalSubCategory, setModalSubCategory }
 
     const [titleForm, setTitleForm] = useState('Escolha uma categoria');
 
-    const [btnReturn, setBtnReturn] = useState('d-none')
+    const [btnReturn, setBtnReturn] = useState('d-none');
 
-    const showFormCreateSubCategories = (id: number) => {
+    useEffect(() => {
 
-        getSubCategories(id);
-        setCategory_id(id);
+        if(category_id) {
+
+            getSubCategories(category_id);
+
+        }
+
+    },[subCategories]);
+
+    const showFormCreateSubCategories = (category_id: string) => {
+
+        getSubCategories(category_id);
+        setCategory_id(category_id);
 
         setClassListCategories('d-none');
         setClassFormSubCategory("container d-block justify-content-center");
@@ -94,8 +104,8 @@ export const ModalCreateSubCategory = ({ modalSubCategory, setModalSubCategory }
                     </button>
                     <ul className={classListCategories}>
                         {categories && categories.map((category) =>
-                            <li key={category?.id} className="d-flex justify-content-center h5 list-categories-hover">
-                                <button className='m-0 bg-white border border-white' onClick={() => showFormCreateSubCategories(category.id)}>{category?.name}</button>
+                            <li key={category?._id} className="d-flex justify-content-center h5 list-categories-hover">
+                                <button className='m-0 bg-white border border-white' onClick={() => showFormCreateSubCategories(category._id)}>{category.name}</button>
                             </li>
                         )}
                     </ul>
@@ -103,7 +113,7 @@ export const ModalCreateSubCategory = ({ modalSubCategory, setModalSubCategory }
                     { /* Sub categorias existentes */}
                     <ul className={classListSubCategories}>
                         {subCategories && subCategories.map((subCategory) =>
-                            <li key={subCategory?.id} className="d-flex justify-content-between h5 list-categories-hover">
+                            <li key={subCategory?._id} className="d-flex justify-content-between h5 list-categories-hover">
                                 <button className='m-0 bg-white border border-white'>{subCategory?.name}</button>
 
                                 <div className="container d-flex align-items-center justify-content-end">
@@ -113,7 +123,7 @@ export const ModalCreateSubCategory = ({ modalSubCategory, setModalSubCategory }
                                             <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                                         </svg>
                                     </button>
-                                    <button className='btn-delete' onClick={() => deleteSubCategory(subCategory.id)}>
+                                    <button className='btn-delete' onClick={() => deleteSubCategory(subCategory._id)}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
                                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                                             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />

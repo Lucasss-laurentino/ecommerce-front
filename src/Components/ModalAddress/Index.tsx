@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import InputMask from "react-input-mask";
 import { useForm } from 'react-hook-form';
@@ -21,8 +21,6 @@ export const ModalAddress = ({ modalAddress, setModalAddress }: Props) => {
 
     const [cep, setCep] = useState<string | null>();
 
-    const [number, setNumber] = useState<string>('');
-
     const [classShowForm, setClassShowForm] = useState<string>('text-center d-none');
 
     const [classHidenAddress, setClassHidenAddress] = useState<string>('container scroll');
@@ -30,19 +28,18 @@ export const ModalAddress = ({ modalAddress, setModalAddress }: Props) => {
     const [classHidenBtn, setClassHidenBtn] = useState<string>('container d-flex justify-content-center');
 
     useEffect(() => {
+    
+        getAddresses();
 
-        if (localStorage.getItem('user')) {
-
-            getAddresses();
-
-        }
-    }, [])
+    }, []);
 
     useEffect(() => {
 
         returnDefaultClasses();
 
     }, [addresses])
+
+
 
     const switchClasses = () => {
         setClassHidenAddress('container scroll d-none')
@@ -109,13 +106,13 @@ export const ModalAddress = ({ modalAddress, setModalAddress }: Props) => {
             <Modal.Body>
                 <div className="container">
                     <div className="container">
-                        {addresses?.map((addresse) => {
+                        {addresses?.map((address) => {
                             return (
-                                <ul className='scroll_address'  key={addresse.id}>
+                                <ul className='scroll_address'  key={address._id}>
 
                                     <li>
                                         <div className="d-flex justify-content-end">
-                                            <button type='button' className='text-danger border border-white bg-white' onClick={() => deleteAddress(addresse.id)}>
+                                            <button type='button' className='text-danger border border-white bg-white' onClick={() => deleteAddress(address._id)}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" className="bi bi-trash3-fill" viewBox="0 0 16 16">
                                                     <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
                                                 </svg>
@@ -125,16 +122,16 @@ export const ModalAddress = ({ modalAddress, setModalAddress }: Props) => {
 
                                         <div className="row">
                                             <div className="d-flex">
-                                                <p className="m-0 mx-2">{addresse?.street},</p>
-                                                <p className="m-0 mx-2">Número {addresse?.number},</p>
-                                                <p className="m-0 mx-2">{addresse?.district}</p>
+                                                <p className="m-0 mx-2">{address?.street},</p>
+                                                <p className="m-0 mx-2">Número {address?.number},</p>
+                                                <p className="m-0 mx-2">{address?.district}</p>
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="d-flex">
-                                                <p className="m-0 mx-2">{addresse?.city},</p>
-                                                <p className="m-0 mx-2">{addresse?.state},</p>
-                                                <p className="m-0 mx-2">{addresse?.cep}</p>
+                                                <p className="m-0 mx-2">{address?.city},</p>
+                                                <p className="m-0 mx-2">{address?.state},</p>
+                                                <p className="m-0 mx-2">{address?.cep}</p>
                                             </div>
                                         </div>
                                         <hr />

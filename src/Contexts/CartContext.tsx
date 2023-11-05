@@ -34,27 +34,24 @@ export const CartProvider = ({ children }: { children: JSX.Element }) => {
     }, [carts])
 
     const getCarts = () => {
-
-        const user_id = localStorage.getItem('user');
-
-        http.get(`getCarts/${user_id}`).then((response) => {
-            setCarts([...response.data]);
+        
+        http.get(`/getCarts`).then((response) => {
+            setCarts([...response.data.productsCart]);
         })
 
     }
 
     const selectProduct = (cart: Cart) => {
 
-        const user_id = localStorage.getItem('user');
-
+        
         const checkbox = document.getElementById(cart.name_product);
 
         if(checkbox?.getAttribute('checked')){
             
             checkbox.removeAttribute('checked');
 
-            http.post('checkCart', {selected: false, id_cart: cart.id, user_id: user_id}).then((response) => {
-                setCarts([...response.data]);
+            http.post('/checkCart', {selected: false, id_cart: cart._id}).then((response) => {
+                setCarts([...response.data.carts]);
             })
 
             setTotal(total - Number(cart.price_product) * cart.quantity);
@@ -63,20 +60,19 @@ export const CartProvider = ({ children }: { children: JSX.Element }) => {
 
             checkbox?.setAttribute('checked', 'checked');
 
-            http.post('checkCart', {selected: true, id_cart: cart.id, user_id: user_id}).then((response) => {
-                setCarts([...response.data]);
+            http.post('/checkCart', {selected: true, id_cart: cart._id}).then((response) => {
+                setCarts([...response.data.carts]);
             })
 
         }
+        
 
 
     }
 
     const moreQuantity = (cart: Cart) => {
-        
-        const user_id = localStorage.getItem('user');
-
-        http.post('moreQuantity', {user_id: user_id, product_id: cart.products_id }).then((response) => {
+    
+        http.post('/moreQuantity', {product_id: cart.products_id }).then((response) => {
             setCarts([...response.data]);
         })
 
@@ -84,21 +80,17 @@ export const CartProvider = ({ children }: { children: JSX.Element }) => {
 
     const anyLessQuantity = (cart: Cart) => {
         
-        const user_id = localStorage.getItem('user');
-
-        http.post('anyLessQuantity', {user_id: user_id, product_id: cart.products_id }).then((response) => {
-            setCarts([...response.data]);
-        })
+        http.post('/anyLessQuantity', { product_id: cart.products_id }).then((response) => {
+            console.log(response.data);
+        });
 
     }
 
     const resetQuantity = () => {
         
-        const user_id = localStorage.getItem('user');
-
-        http.post('resetQuantity', {user_id: user_id}).then((response) => {
-
-            setCarts([...response.data]);
+        http.post('/resetQuantity').then((response) => {
+            console.log(response.data.carts)
+            setCarts([...response.data.carts]);
 
         })
     

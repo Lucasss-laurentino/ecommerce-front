@@ -8,7 +8,7 @@ export const Cart = () => {
 
     const { getCarts, carts, selectProduct, resetQuantity, total, deleteCart } = useContext(CartContext);
 
-    const { modalAddresses, setModalAddresses, getAddresses, addresses, getPriceDeliveryAddressDefault, priceDeliveryAddressDefault } = useContext(AddressContext);
+    const { setModalAddresses, getAddresses, addresses, getPriceDeliveryAddressDefault, priceDeliveryAddressDefault } = useContext(AddressContext);
 
     useEffect(() => {
 
@@ -48,7 +48,7 @@ export const Cart = () => {
                         <div className="container scroll-cards">
                             {carts.map((cart) => {
                                 return (
-                                    <React.Fragment key={cart.id}>
+                                    <React.Fragment key={cart._id}>
                                         <div className="card-border mb-3">
                                             <div className="card-body">
                                                 <div className="d-flex justify-content-end align-items-center">
@@ -131,7 +131,7 @@ export const Cart = () => {
                                     { addresses.map(address => {
                                         if (address.default) {
                                             return (
-                                                <React.Fragment key={address.id}>
+                                                <React.Fragment key={address._id}>
                                                     <ul className='list_addresses'>
                                                         <li>Cep: {address.cep}</li>
                                                         <li>Estado: {address.state}</li>

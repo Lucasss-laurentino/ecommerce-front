@@ -1,7 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { http } from "../http/http";
 import Category from "../types/Category";
-import SubCategory from "../types/SubCategory";
 
 type CategoryType = {
     categories: Category[],
@@ -9,9 +8,9 @@ type CategoryType = {
     category_default: Category | undefined,
     createCategory: (category: any) => void,
     getCategories: () => void,
-    getCategory: (id: number) => void, // string porque vem de um sessionStorage
-    deleteCategory: (id: number) => void,
-    categoryDefault: (id: number) => void,
+    getCategory: (id: string) => void, // string porque vem de um sessionStorage
+    deleteCategory: (id: string) => void,
+    categoryDefault: (id: string) => void,
     getCategoryDefault: () => void,
 
 }
@@ -27,57 +26,58 @@ export const CategoryProvider = ({children}: {children: JSX.Element}) => {
     const createCategory = (category: any) => {
 
         http.request({
-            url: 'createCategory',
+            url: '/createCategory',
             method: 'post',
-            headers: {                
-                'Content-type': 'multipart/form-data'
+            headers: {
+                'Content-Type': 'multipart/form-data'
             },
             data: category
         }).then((response) => {
+            setCategories([...categories, response.data.category]);
             getCategoryDefault();
-            setCategories(response.data[1])
-        })
 
+        })
+        
 
     }
 
     const getCategories = () => {
 
         http.get('getCategories').then((response) => {
-            setCategories(response.data);
+            setCategories([...response.data.categories]);
         })
         
     }
 
-    const getCategory = (id: number) => {
+    const getCategory = (id: string) => {
         http.get(`getCategory/${id}`).then((response) => {
             setCategory(response.data);
         })
     }
 
-    const deleteCategory = (id: number) => {
+    const deleteCategory = (id: string) => {
 
         http.delete(`deleteCategory/${id}`).then((response) => {
-            setCategories(response.data)
+            setCategories([...response.data.allCategories]);
             getCategoryDefault();
         })
 
 
     }
 
-    const categoryDefault = (id: number) => {
+    const categoryDefault = (id: string) => {
 
-        http.get(`categoryDefault/${id}`).then((response) => {
-            setCategories(response.data)
-            getCategoryDefault()
+        http.post(`/categoryDefault`, {id}).then((response) => {
+            setCategories([...response.data.categories]);
+            getCategoryDefault();
         })
 
     }
 
     const getCategoryDefault = () => {
 
-        http.get(`getCategoryDefault`).then((response) => {
-            setCategory_default(response.data);
+        http.get(`/getCategoryDefault`).then((response) => {
+            setCategory_default(response.data.category);
         })
 
     }

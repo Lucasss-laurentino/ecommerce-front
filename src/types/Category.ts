@@ -1,6 +1,6 @@
 export default interface Category {
 
-    id: number,
+    _id: string,
     name: string,
     banner1: string,
     banner2: string,

@@ -11,7 +11,7 @@ type AddressType = {
     getPriceDeliveryAddressDefault: () => void,
     getAddresses: () => void,
     createAddress: (data: any) => void,
-    deleteAddress: (id_address: number) => void,
+    deleteAddress: (id_address: string) => void,
 
 }
 
@@ -27,30 +27,24 @@ export const AddressProvider = ({children}: {children: JSX.Element}) => {
 
     const getAddresses = () => {
 
-        const id_user = localStorage.getItem('user');
-
-        http.get(`getAddress/${id_user}`).then((response) => {
-            setAddresses([...response.data]);
-        })
+        http.get('/getAddresses').then((response) => {
+            setAddresses([...response.data.addresses]);
+        });
 
     }
 
     const createAddress = (dataAddress: any) => {
 
-        const user_id = localStorage.getItem('user');
-
-        http.post('createAddress', { dataAddress, user_id }).then((response) => {
-
-            setAddresses([...response.data]);
-
-        })
+        http.post('/createAddress', { dataAddress }).then((response) => {
+            setAddresses([...addresses, response.data.newAddress]);
+        });
 
     }
 
-    const deleteAddress = (id_address: number) => {
+    const deleteAddress = (id_address: string) => {
 
         http.delete(`deleteAddress/${id_address}`).then((response) => {
-            setAddresses([...response.data]);
+            setAddresses([...response.data.allAddresses]);
         })
 
     }

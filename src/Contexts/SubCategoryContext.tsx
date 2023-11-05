@@ -4,9 +4,9 @@ import SubCategory from "../types/SubCategory";
 
 type SubCategoryType = {
     subCategories: SubCategory[] | undefined,
-    getSubCategories: (id: number) => void,
-    createSubCategory: (subCategoryName: string, category_id: number) => void,
-    deleteSubCategory: (id: number) => void,
+    getSubCategories: (category_id: string) => void,
+    createSubCategory: (subCategoryName: string, category_id: string) => void,
+    deleteSubCategory: (id: string) => void,
 }
 
 export const SubCategoryContext = createContext<SubCategoryType>(null!);
@@ -15,26 +15,28 @@ export const SubCategoryProvider = ({children}: {children: JSX.Element}) => {
 
     const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
 
-    const getSubCategories = (id: number) => {
+    const getSubCategories = (category_id: string) => {
 
-        http.get(`getSubCategories/${id}`).then((response) => {
-            setSubCategories(response.data);
+        http.get(`getSubCategories/${category_id}`).then((response) => {
+            setSubCategories([...response.data.subCategories]);
         })
-
+    
     }
 
-    const createSubCategory = (subCategoryName: string, category_id: number) => {
+    const createSubCategory = (subCategoryName: string, category_id: string) => {
 
         http.post('createSubCategory', { subCategoryName, category_id }).then((response) => {
-            setSubCategories(response.data)
+            setSubCategories([...response.data.subCategories]);
         })
 
     }
 
-    const deleteSubCategory = (id: number) => {
+    const deleteSubCategory = (id: string) => {
+
         http.delete(`deleteSubCategory/${id}`).then((response) => {
-            setSubCategories(response.data);
-        })
+            setSubCategories([...response.data.allSubCategories]);
+        });
+        
     }
 
     return (

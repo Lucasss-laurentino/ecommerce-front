@@ -1,10 +1,10 @@
 export default interface Product {
-    id: number,
+    _id: string,
     name: string,
     manufacturer: string,
     price: string,
-    sub_categories_id: number,
-    categories_id: number,
+    sub_categories_id: string,
+    categories_id: string,
     imageOne: string,
     imageTwo: string,
     imageThree: string,

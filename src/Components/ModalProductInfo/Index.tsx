@@ -21,7 +21,7 @@ export const ModalProductInfo = () => {
     useEffect(() => {
 
         if(productInfo){
-            getSizes(productInfo.id);
+            getSizes(productInfo._id);
         }
 
     }, [productInfo])
@@ -63,13 +63,11 @@ export const ModalProductInfo = () => {
 
     const handleSize = (size: Size) => {
 
-        sizeSelect(size)
+        sizeSelect(size) // setSizeSelected
 
-        if (sizeSelected && user) {
+        if (sizeSelected) {
 
-   
-
-            const previousSize = document.getElementById(sizeSelected.size);
+            const previousSize = document.getElementById(sizeSelected.size); // pegar elemento clicado
 
             if (previousSize?.className) {
 
@@ -77,13 +75,10 @@ export const ModalProductInfo = () => {
 
             }
 
-            sizeSelect(size);
-
             const sizeMark = document.getElementById(size.size);
 
             if (sizeMark?.className) {
                 sizeMark.className = 'text-white bg-dark h5 mx-2 border rounded-circle py-0 px-2';
-                console.log(sizeMark)
             }
 
         } else {
@@ -104,22 +99,20 @@ export const ModalProductInfo = () => {
     }
 
     const addProductToCart = () => {
-
+        
         if (sizeSelected) {
 
-            const userId = localStorage.getItem('user');
+            http.post('/addToCart', { productInfo, sizeSelected }).then((response) => {
+                
+                setError('');
+                setProductCart(true);
+                
+            }).catch(() => {
 
-            http.post('addToCart', { productInfo, sizeSelected, userId }).then((response) => {
-                
-                if (response.data === false) {
-                    setError('Você já possui esse produto no seu carrinho');
-                    setProductCart(false);
-                } else {
-                    setError('');
-                    setProductCart(true);
-                }
-                
-            })
+                setError('Você já possui esse produto no seu carrinho');
+                setProductCart(false);
+            
+            });
 
         } else {
 

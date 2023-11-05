@@ -7,8 +7,8 @@ type ProductType = {
     product: Product | undefined,
     products: Product[] | undefined,
     setProducts: React.Dispatch<React.SetStateAction<Product[] | undefined>>,
-    getProductThisCategory: (id: number) => void,
-    deleteProduct: (id_product: number) => void,
+    getProductsThisCategory: (id_category: string) => void,
+    deleteProduct: (id_product: string) => void,
 }
 
 export const ProductContext = createContext<ProductType>(null!);
@@ -18,15 +18,15 @@ export const ProductProvider = ({children}: {children: JSX.Element}) => {
     const [product, setProduct] = useState<Product | undefined>();
     const [products, setProducts] = useState<Product[] | undefined>([]);
 
-    const getProductThisCategory = (id: number) => {
+    const getProductsThisCategory = (id_category: string) => {
 
-        http.get(`getProductThisCategory/${id}`).then((response) => {
-            setProducts([...response.data]);
+        http.get(`getProductsThisCategory/${id_category}`).then((response) => {
+            setProducts([...response.data.products]);
         })
     
     }
 
-    const deleteProduct = (id_product: number) => {
+    const deleteProduct = (id_product: string) => {
         
         http.delete(`deleteProduct/${id_product}`).then((response) => {
             setProducts([...response.data]);
@@ -36,7 +36,7 @@ export const ProductProvider = ({children}: {children: JSX.Element}) => {
 
     return (
 
-        <ProductContext.Provider value={{product, products, setProducts, getProductThisCategory, deleteProduct}}>
+        <ProductContext.Provider value={{product, products, setProducts, getProductsThisCategory, deleteProduct}}>
             {children}
         </ProductContext.Provider>
 

@@ -18,7 +18,7 @@ export const CreateUser = () => {
             setMenu(false);
         }
 
-    },[])
+    })
 
     return (
         <>

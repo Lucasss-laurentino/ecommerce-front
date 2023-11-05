@@ -3,13 +3,16 @@
     align-items: center;
     height: 70vh;
 }
+
+.div-login {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .form-login {
     width: 60%;
     text-align: center;
-}
-.text-responsive {
-
-    font-size: 16px;
 }
 
 @media (max-width: 449px){
