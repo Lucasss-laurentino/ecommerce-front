@@ -16,6 +16,8 @@ export const Cart = () => {
         resetQuantity();
         getAddresses();
 
+        console.log(carts);
+        
     }, [])
 
     useEffect(() => {
@@ -37,7 +39,7 @@ export const Cart = () => {
 
                 <div className="d-flex justify-content-between align-items-center mb-4">
                     <div>
-                        <p className="mb-0">Você tem {carts.length} itens no carrinho</p>
+                        <p className="mb-0">Você tem {carts.length <= 1 ? `${carts.length} item` : `${carts.length} itens`} no carrinho</p>
                     </div>
                 </div>
 
@@ -88,7 +90,7 @@ export const Cart = () => {
                     </div>
 
                     {/* form cartao */}
-                    <div className="col-lg-5 scroll-card-data">
+                    <div className="col-lg-5 scroll-card-data mt-3">
 
                         <div className="card bg-dark text-white rounded-3">
                             <div className="card-body">

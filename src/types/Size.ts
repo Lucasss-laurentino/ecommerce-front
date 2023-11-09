@@ -1,5 +1,5 @@
 export default interface Size {
-    id: number,
+    _id: string,
     size: string,
     quantity: number,
     products_id: string,

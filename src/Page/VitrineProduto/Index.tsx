@@ -9,13 +9,12 @@ import { ModalProductInfoContext } from "../../Contexts/ModalProductInfoContext"
 import { ModalProductInfo } from "../../Components/ModalProductInfo/Index";
 import React from "react";
 import './VitrineProduto.css';
-import axios from "axios";
 
 export default function VitrineProduto() {
 
     const { subCategoryName } = useParams();
     const { user } = useContext(LoginContext);
-    const { deleteProduct } = useContext(ProductContext);
+    const { getProductsSubCategory, deleteProduct, productsThisSubCategory } = useContext(ProductContext);
     const { setModalProductInfo, setProductInfo } = useContext(ModalProductInfoContext);
     const [productsPaginate, setProductsPaginate] = useState<Product[]>([]);
 
@@ -26,7 +25,12 @@ export default function VitrineProduto() {
     const [total, setTotal] = useState(0);
 
     useEffect(() => {
+        
+        if(subCategoryName != undefined){
+        getProductsSubCategory(subCategoryName)
 
+        }
+        /*
         axios.get('http://localhost:8000/getProductsSubCategory').then((response) => {
 
             console.log(response.data)
@@ -41,8 +45,9 @@ export default function VitrineProduto() {
             }
 
             setPages(arrayPages);
-            */
+            
         })
+        */
 
     }, [subCategoryName]);
 
@@ -104,10 +109,10 @@ export default function VitrineProduto() {
 
             <div className="container">
                 <ul className="d-flex flex-wrap p-0 justify-content-center">
-                    {productsPaginate && productsPaginate.map(product => {
-                        return (
+                    {productsThisSubCategory.map(product => {
+                        return (     
                             <React.Fragment key={product._id}>
-                                <li className="list-group-item card-product col-3 text-center m-2">
+                                <li className="list-group-item card-product col-5 text-center m-2">
                                     <div className="card-header bg-white">
                                         {user?.adm ?
                                             <div className="d-flex justify-content-end">

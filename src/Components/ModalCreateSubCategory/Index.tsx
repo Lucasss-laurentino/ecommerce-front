@@ -18,7 +18,7 @@ export const ModalCreateSubCategory = ({ modalSubCategory, setModalSubCategory }
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    const [classListCategories, setClassListCategories] = useState('d-block');
+    const [classListCategories, setClassListCategories] = useState('d-block p-0');
 
     const [category_id, setCategory_id] = useState<string>('');
 
@@ -47,7 +47,7 @@ export const ModalCreateSubCategory = ({ modalSubCategory, setModalSubCategory }
 
         setClassListCategories('d-none');
         setClassFormSubCategory("container d-block justify-content-center");
-        setClassListSubCategories('d-block')
+        setClassListSubCategories('d-block p-0')
         setTitleForm('Cadastre uma sub categoria');
         setBtnReturn('btn-sm bg-white border border-white');
         
@@ -55,7 +55,7 @@ export const ModalCreateSubCategory = ({ modalSubCategory, setModalSubCategory }
 
     const returnListCategory = () => {
 
-        setClassListCategories('d-block');
+        setClassListCategories('d-block p-0');
         setClassListSubCategories('d-none');
         setTitleForm('Escolha uma categoria');
         setClassFormSubCategory("container d-none justify-content-center");

@@ -73,7 +73,7 @@ export const CartProvider = ({ children }: { children: JSX.Element }) => {
     const moreQuantity = (cart: Cart) => {
     
         http.post('/moreQuantity', {product_id: cart.products_id }).then((response) => {
-            setCarts([...response.data]);
+            setCarts([...response.data.carts]);
         })
 
     }
@@ -81,7 +81,7 @@ export const CartProvider = ({ children }: { children: JSX.Element }) => {
     const anyLessQuantity = (cart: Cart) => {
         
         http.post('/anyLessQuantity', { product_id: cart.products_id }).then((response) => {
-            console.log(response.data);
+            setCarts([...response.data]);
         });
 
     }
@@ -89,7 +89,7 @@ export const CartProvider = ({ children }: { children: JSX.Element }) => {
     const resetQuantity = () => {
         
         http.post('/resetQuantity').then((response) => {
-            console.log(response.data.carts)
+          
             setCarts([...response.data.carts]);
 
         })
@@ -98,10 +98,10 @@ export const CartProvider = ({ children }: { children: JSX.Element }) => {
 
     const deleteCart = (cart: Cart) => {
         
-        const cart_id = cart.products_id;
-        const user_id = localStorage.getItem('user');
+        const cart_id = cart._id;
         
-        http.delete(`deleteCart/${cart_id}/${user_id}`).then((response) => {
+        http.delete(`deleteCart/${cart_id}`).then((response) => {
+            console.log(response.data)
             setCarts([...response.data]);
         })
     

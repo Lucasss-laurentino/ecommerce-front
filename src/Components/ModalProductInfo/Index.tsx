@@ -103,10 +103,9 @@ export const ModalProductInfo = () => {
         if (sizeSelected) {
 
             http.post('/addToCart', { productInfo, sizeSelected }).then((response) => {
-                
+                console.log(response.data)
                 setError('');
                 setProductCart(true);
-                
             }).catch(() => {
 
                 setError('Você já possui esse produto no seu carrinho');
@@ -191,7 +190,7 @@ export const ModalProductInfo = () => {
                                         <p className="text-muted d-flex mb-2">Tamanhos</p>
                                         {sizes?.map((size) => {
                                             return (
-                                                <p key={size.id} className='bg-white text-dark h5 mx-2 border hover rounded-circle py-0 px-2' id={size.size} onClick={() => handleSize(size)}>{size.size}</p>
+                                                <p key={size._id} className='bg-white text-dark h5 mx-2 border hover rounded-circle py-0 px-2' id={size.size} onClick={() => handleSize(size)}>{size.size}</p>
                                             )
                                         })}
                                     </div>

@@ -40,7 +40,7 @@ export const SubCategoryProvider = ({children}: {children: JSX.Element}) => {
     }
 
     return (
-        <SubCategoryContext.Provider value={{ subCategories, getSubCategories, createSubCategory, deleteSubCategory }}>
+        <SubCategoryContext.Provider value={{ subCategories, getSubCategories, createSubCategory, deleteSubCategory}}>
             {children}
         </SubCategoryContext.Provider>
     )

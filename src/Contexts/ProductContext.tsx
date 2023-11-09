@@ -9,6 +9,9 @@ type ProductType = {
     setProducts: React.Dispatch<React.SetStateAction<Product[] | undefined>>,
     getProductsThisCategory: (id_category: string) => void,
     deleteProduct: (id_product: string) => void,
+    getProductsSubCategory: (subCategoryName: string) => void,
+    productsThisSubCategory: Product[],
+
 }
 
 export const ProductContext = createContext<ProductType>(null!);
@@ -17,6 +20,8 @@ export const ProductProvider = ({children}: {children: JSX.Element}) => {
 
     const [product, setProduct] = useState<Product | undefined>();
     const [products, setProducts] = useState<Product[] | undefined>([]);
+
+    const [productsThisSubCategory, setProductsThisSubCategory] = useState<Product[]>([]);
 
     const getProductsThisCategory = (id_category: string) => {
 
@@ -34,9 +39,15 @@ export const ProductProvider = ({children}: {children: JSX.Element}) => {
     
     }
 
+    const getProductsSubCategory = (subCategoryName: string) => {
+        http.get(`/getProductsSubCategory/${subCategoryName}`).then((response) => {
+            setProductsThisSubCategory([...response.data.productsThisSubCategory]);
+        })
+    }
+
     return (
 
-        <ProductContext.Provider value={{product, products, setProducts, getProductsThisCategory, deleteProduct}}>
+        <ProductContext.Provider value={{product, products, setProducts, getProductsThisCategory, deleteProduct, getProductsSubCategory, productsThisSubCategory}}>
             {children}
         </ProductContext.Provider>
 

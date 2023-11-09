@@ -14,7 +14,7 @@ export const Carrousel = () => {
     }, []);
 
     return (
-        <Carousel interval={2000}>
+        <Carousel interval={2000} indicators={false}>
             <Carousel.Item>
                 <div className="div-img">
                     <img
