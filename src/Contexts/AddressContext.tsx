@@ -12,6 +12,7 @@ type AddressType = {
     getAddresses: () => void,
     createAddress: (data: any) => void,
     deleteAddress: (id_address: string) => void,
+    defaultAddress: (address_id: string) => void,
 
 }
 
@@ -84,8 +85,18 @@ export const AddressProvider = ({children}: {children: JSX.Element}) => {
     
     }
 
+    const defaultAddress = (address_id: string) => {
+
+        http.post('/defaultAddress', {address_id: address_id}).then((response) => {
+
+            setAddresses([...response.data]);
+
+        })
+
+    }
+
     return (
-        <AddressContext.Provider value={{addresses, getAddresses, createAddress, deleteAddress, priceDeliveryAddressDefault, getPriceDeliveryAddressDefault, setModalAddresses, modalAddresses}}>
+        <AddressContext.Provider value={{addresses, getAddresses, createAddress, deleteAddress, priceDeliveryAddressDefault, getPriceDeliveryAddressDefault, setModalAddresses, modalAddresses, defaultAddress}}>
             {children}
         </AddressContext.Provider>
     );

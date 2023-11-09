@@ -130,6 +130,11 @@ export const Cart = () => {
                                 <hr className="my-4" />
 
                                 <div className="container p-0">
+                                    <div className="d-flex justify-content-end align-items-center">
+                                        <button type='button' className='border border-dark bg-dark text-white text-decoration-underline' onClick={() => setModalAddresses(true)}>
+                                            Mudar
+                                        </button>
+                                    </div>
                                     { addresses.map(address => {
                                         if (address.default) {
                                             return (
