@@ -5,6 +5,7 @@ import { SubCategoryContext } from '../../Contexts/SubCategoryContext';
 import { Card_product } from '../Card_product/Index';
 import './ListSubCategories.css';
 import { Link } from 'react-router-dom';
+import React from 'react';
 
 export const ListSubCategories = () => {
 
@@ -12,27 +13,34 @@ export const ListSubCategories = () => {
 
     const { getSubCategories, subCategories } = useContext(SubCategoryContext);
 
-    const { getProductsThisCategory } = useContext(ProductContext);
-
-    const { products } = useContext(ProductContext);
+    const { products, getProductsThisCategory } = useContext(ProductContext);
 
     useEffect(() => {
 
-        if (category) {
+        
+        if (category != null || category != undefined) {
 
             getSubCategories(category._id);
-            getProductsThisCategory(category._id);
 
-        } else {
+            getProductsThisCategory(category._id)
+
+        }
+        
+        if(category === null || category === undefined){
 
             if (category_default) {
+
                 getSubCategories(category_default._id);
                 getProductsThisCategory(category_default._id);
+
             }
 
         }
+        
+
 
     }, [category, category_default]);
+
 
     return (
         <>
@@ -48,7 +56,15 @@ export const ListSubCategories = () => {
                         </Link>
                     </div>
                     <div className="container d-flex roll">                        
-                        {products?.map((product) => product.sub_categories_id === subCategory._id && <Card_product key={product._id} product={product} />)}
+                        {
+                            products?.map((product) => {
+                                return (
+                                    <React.Fragment key={product._id}>
+                                        {product.sub_categories_id === subCategory._id && <Card_product key={product._id} product={product}  /> }
+                                    </React.Fragment>
+                                )
+                            })
+                        }
                     </div>
 
                 </div>

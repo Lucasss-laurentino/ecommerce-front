@@ -17,6 +17,7 @@ export default function VitrineProduto() {
     const { getProductsSubCategory, deleteProduct, productsThisSubCategory } = useContext(ProductContext);
     const { setModalProductInfo, setProductInfo } = useContext(ModalProductInfoContext);
     const [productsPaginate, setProductsPaginate] = useState<Product[]>([]);
+    
 
     const [nextUrl, setNextUrl] = useState('');
     const [prevUrl, setPrevUrl] = useState('');
@@ -27,27 +28,8 @@ export default function VitrineProduto() {
     useEffect(() => {
         
         if(subCategoryName != undefined){
-        getProductsSubCategory(subCategoryName)
-
+            getProductsSubCategory(subCategoryName)   
         }
-        /*
-        axios.get('http://localhost:8000/getProductsSubCategory').then((response) => {
-
-            console.log(response.data)
-            /*
-            setProductsPaginate([...response.data.data]);
-            setNextUrl(response.data.next_page_url);
-            setTotal(response.data.last_page);
-
-            const arrayPages: any = [];
-            for (let cont = 1; cont <= response.data.last_page; cont++) {
-                arrayPages.push(cont);
-            }
-
-            setPages(arrayPages);
-            
-        })
-        */
 
     }, [subCategoryName]);
 

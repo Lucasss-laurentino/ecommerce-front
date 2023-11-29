@@ -16,6 +16,7 @@ import { Vitrine } from './Page/Vitrine/Index';
 import VitrineProduto from './Page/VitrineProduto/Index';
 import { ModalProductInfoProvider } from './Contexts/ModalProductInfoContext';
 import { Password_reset } from './Components/Password_reset/Index';
+import { CartaoContextProvider } from './Contexts/CartaoContext';
 
 export default function AppRoutes() {
 
@@ -30,18 +31,20 @@ export default function AppRoutes() {
                                     <AddressProvider>
                                         <CartProvider>
                                             <ModalProductInfoProvider>
-                                            <Router>
-                                                <Routes>
-                                                    <Route path='/' element={<PageDefault />}>
-                                                        <Route path='/' element={<Vitrine />} />
-                                                        <Route path='login' element={<Login />} />
-                                                        <Route path='createUser' element={<CreateUser />} />
-                                                        <Route path='/cart' element={<Cart />} />
-                                                        <Route path='/:subCategoryName' element={<VitrineProduto />}/>
-                                                        <Route path='password_reset' element={<Password_reset />} />
-                                                    </Route>
-                                                </Routes>
-                                            </Router>
+                                                <CartaoContextProvider>
+                                                    <Router>
+                                                        <Routes>
+                                                            <Route path='/' element={<PageDefault />}>
+                                                                <Route path='/' element={<Vitrine />} />
+                                                                <Route path='login' element={<Login />} />
+                                                                <Route path='createUser' element={<CreateUser />} />
+                                                                <Route path='/cart' element={<Cart />} />
+                                                                <Route path='/:subCategoryName' element={<VitrineProduto />}/>
+                                                                <Route path='password_reset' element={<Password_reset />} />
+                                                            </Route>
+                                                        </Routes>
+                                                    </Router>
+                                                </CartaoContextProvider>
                                             </ModalProductInfoProvider>
                                         </CartProvider>
 

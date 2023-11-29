@@ -8,7 +8,7 @@ type CategoryType = {
     category_default: Category | undefined,
     createCategory: (category: any) => void,
     getCategories: () => void,
-    getCategory: (id: string) => void, // string porque vem de um sessionStorage
+    getCategory: (id: string) => void,
     deleteCategory: (id: string) => void,
     categoryDefault: (id: string) => void,
     getCategoryDefault: () => void,
@@ -50,9 +50,11 @@ export const CategoryProvider = ({children}: {children: JSX.Element}) => {
     }
 
     const getCategory = (id: string) => {
-        http.get(`getCategory/${id}`).then((response) => {
-            setCategory(response.data);
+
+        http.get(`/getCategory/${id}`).then((response) => {
+            setCategory(response.data.category[0]);
         })
+
     }
 
     const deleteCategory = (id: string) => {
@@ -77,7 +79,7 @@ export const CategoryProvider = ({children}: {children: JSX.Element}) => {
     const getCategoryDefault = () => {
 
         http.get(`/getCategoryDefault`).then((response) => {
-            setCategory_default(response.data.category);
+            setCategory_default(response.data.categoryDefault);
         })
 
     }

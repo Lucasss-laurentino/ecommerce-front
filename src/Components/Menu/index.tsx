@@ -8,12 +8,16 @@ import ModalCategory from '../ModalCreateCategory/Index';
 import { ModalCreateProduct } from '../ModalCreateProduct/Index';
 import { ModalCreateSubCategory } from '../ModalCreateSubCategory/Index';
 import { Link } from 'react-router-dom';
+import { CartaoContext } from '../../Contexts/CartaoContext';
+import { ModalCartao } from '../ModalCartao';
 
 export const Menu = () => {
 
     const { menu, setMenu } = useContext(MenuContext);
 
     const { logout } = useContext(LoginContext)
+
+    const { setCartaoModal } = useContext(CartaoContext);
 
     const { modalAddresses, setModalAddresses } = useContext(AddressContext);
 
@@ -48,6 +52,8 @@ export const Menu = () => {
 
             />
 
+            <ModalCartao />
+
             {/* Menu */}
             <div className={!menu ? "div-menu-user-escondida" : "div-menu-user"}>
                 <div className='div-lista-menu'>
@@ -79,6 +85,20 @@ export const Menu = () => {
                                     </svg>
                                 </a>
                             </li>
+                            {localStorage.getItem('token') &&
+
+                            <li className={menu ? "item-lista-menu item2" : "item-lista-menu-escondida item2"}>
+                                <a href='#' onClick={() => setCartaoModal(true)} className='texto-responsivo texto-login' >
+                                    <p className='m-0'>Meus cartões</p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" className="bi bi-credit-card mx-1" viewBox="0 0 16 16">
+                                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
+                                        <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/>
+                                    </svg>
+                                </a>
+                            </li>
+                    
+                            }
+
                             <>
                                 <li className={menu ? "item-lista-menu item4" : "item-lista-menu-escondida item4"}>
                                     <button className='texto-responsivo btn-item-menu-adm' onClick={() => setModalCategory(true)}>

@@ -3,20 +3,25 @@ import { CartContext } from '../../Contexts/CartContext';
 import './Cart.css';
 import Quantity from '../Quantity/Index';
 import { AddressContext } from '../../Contexts/AddressContext';
-    
+import { CartaoContext } from '../../Contexts/CartaoContext';
+import Cards from 'react-credit-cards';
+import 'react-credit-cards/es/styles-compiled.css';
+
 export const Cart = () => {
 
     const { getCarts, carts, selectProduct, resetQuantity, total, deleteCart } = useContext(CartContext);
 
     const { setModalAddresses, getAddresses, addresses, getPriceDeliveryAddressDefault, priceDeliveryAddressDefault } = useContext(AddressContext);
 
+    const { getCartoes, cartoes, setCartaoModal, cardDefaultState, getCardDefault } = useContext(CartaoContext);
+
     useEffect(() => {
 
         getCarts();
         resetQuantity();
         getAddresses();
-
-        console.log(carts);
+        getCardDefault();
+        getCartoes();
         
     }, [])
 
@@ -94,20 +99,19 @@ export const Cart = () => {
 
                         <div className="card bg-dark text-white rounded-3">
                             <div className="card-body">
-
+                                
+                                { !cartoes ? 
                                 <form className="mt-4">
                                     <div className="form-outline form-white mb-4">
                                         <input type="text" id="typeName" className="form-control form-control-lg"
                                             placeholder="" />
                                         <label className="form-label" htmlFor="typeName">Nome impresso no cartão</label>
                                     </div>
-
                                     <div className="form-outline form-white mb-4">
                                         <input type="text" id="" className="form-control form-control-lg"
                                             placeholder="1234 5678 9012 3457" />
                                         <label className="form-label" htmlFor="typeText">Número do cartão</label>
                                     </div>
-
                                     <div className="row mb-4">
                                         <div className="col-md-6">
                                             <div className="form-outline form-white">
@@ -124,8 +128,33 @@ export const Cart = () => {
                                             </div>
                                         </div>
                                     </div>
-
                                 </form>
+                                
+                                :
+                                
+                                <>
+
+                                    <div className="container p-0">
+                                        <div className="d-flex justify-content-end align-items-center">
+                                            <button type='button' className='border border-dark bg-dark text-white text-decoration-underline' onClick={() => setCartaoModal(true)}>
+                                                Mudar
+                                            </button>
+                                        </div>
+                                            {cardDefaultState &&
+                                            <div key={cardDefaultState._id}>
+                                                <Cards 
+                                                number={cardDefaultState.numero} 
+                                                name={cardDefaultState.nome} 
+                                                expiry={cardDefaultState.data} 
+                                                cvc={cardDefaultState.cvc} 
+                                                />
+                                            </div>
+                                            }
+                                    </div>
+                                </>
+                                
+                                
+                                }
 
                                 <hr className="my-4" />
 

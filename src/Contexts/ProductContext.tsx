@@ -40,9 +40,13 @@ export const ProductProvider = ({children}: {children: JSX.Element}) => {
     }
 
     const getProductsSubCategory = (subCategoryName: string) => {
+
         http.get(`/getProductsSubCategory/${subCategoryName}`).then((response) => {
+           
             setProductsThisSubCategory([...response.data.productsThisSubCategory]);
+
         })
+
     }
 
     return (

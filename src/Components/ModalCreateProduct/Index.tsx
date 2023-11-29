@@ -200,8 +200,8 @@ export const ModalCreateProduct = ({modalCreateProduct, setModalCreateProduct}: 
                 formData.append('quantityGG', quantity.quantityGG);
             }
 
-            formData.append('category', data.category);
-            formData.append('subCategory', data.subCategory);
+            formData.append('id_category', data.category);
+            formData.append('id_subCategory', data.subCategory);
 
             if (imageOne && imageTwo) {
                 formData.append('image', imageOne);
@@ -225,8 +225,8 @@ export const ModalCreateProduct = ({modalCreateProduct, setModalCreateProduct}: 
         
             }).then(response => {
 
+                console.log(response.data); 
                 setProducts([...response.data.products])
-                //changeProductsThisCategory([...response.data.products]);                
 
                 closeAndReset();
 

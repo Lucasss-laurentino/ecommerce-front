@@ -1,17 +1,19 @@
 import './Carrousel.css';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import { CategoryContext } from '../../Contexts/CategoryContext';
 
 export const Carrousel = () => {
 
-    const { getCategoryDefault, category, category_default } = useContext(CategoryContext);
+    const { category, category_default } = useContext(CategoryContext);
 
+    /*
     useEffect(() => {
 
         getCategoryDefault();
 
     }, []);
+    */
 
     return (
         <Carousel interval={2000} indicators={false}>

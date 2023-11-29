@@ -9,12 +9,14 @@ export const ListCategories = () => {
 
     const { getSubCategories } = useContext(SubCategoryContext);
 
+    
     const selectCategory = (id: string) => {
 
         getCategory(id);
         getSubCategories(id);
 
     }
+    
 
     return (
         <>

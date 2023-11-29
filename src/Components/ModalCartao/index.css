@@ -1,0 +1,43 @@
+.scroll-cards {
+    overflow-y: auto;
+}
+
+.list-cards {
+    list-style: none;
+    padding: 0;
+}
+
+.animeFormCards {
+
+    animation: hidenForm 0.99ms 1 0.99ms both;
+
+}
+
+@keyframes hidenForm {
+    0% {
+        opacity: 9;
+    }
+
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
+.showForm {
+    animation: showForm 1s 1 0.99ms both;
+}
+
+@keyframes showForm {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+
+    }
+
+}
