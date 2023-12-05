@@ -7,6 +7,9 @@ type SizeType = {
     getSizes: (id_products: string) => void,
     sizeSelect: (size: Size) => void,
     sizeSelected: Size | undefined,
+    setSizeSelected: React.Dispatch<React.SetStateAction<Size | undefined>>,
+    changeSizeSelect: (size: Size) => void,
+    resetSizes: (id_product_info: string | undefined) => void,
 }
 
 export const SizeContext = createContext<SizeType>(null!);
@@ -19,7 +22,7 @@ export const SizeProvider = ({children}: {children: JSX.Element}) => {
 
     const getSizes = (id_product: string) => {
         http.get(`getSizeThisProduct/${id_product}`).then((response) => {
-           setSizes(response.data.sizes)
+           setSizes([...response.data.sizes])
         })
 
     }
@@ -30,9 +33,25 @@ export const SizeProvider = ({children}: {children: JSX.Element}) => {
 
     }
 
+    const changeSizeSelect = (size: Size) => {
+
+
+        http.post('/changeSize', {size}).then((response) => {
+            setSizes([...response.data.allSizes]);
+
+        })
+
+    }
+
+    const resetSizes = (id_product_info: string | undefined) => {
+        http.post('/resetSizes', {id_product_info}).then((response) => {
+            setSizes([...response.data.allSizes]);
+        })
+    }
+
     return (
 
-        <SizeContext.Provider value={{sizes, getSizes, sizeSelect, sizeSelected}}>
+        <SizeContext.Provider value={{sizes, getSizes, sizeSelect, sizeSelected, setSizeSelected, changeSizeSelect, resetSizes}}>
             {children}
         </SizeContext.Provider>
 
