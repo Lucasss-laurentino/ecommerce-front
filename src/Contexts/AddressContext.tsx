@@ -1,4 +1,4 @@
-import { SetStateAction, createContext, useEffect, useState } from "react";
+import { SetStateAction, createContext, useState } from "react";
 import { http } from "../http/http";
 import Address from "../types/Address";
 

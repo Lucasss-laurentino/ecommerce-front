@@ -38,7 +38,7 @@ export const SizeProvider = ({children}: {children: JSX.Element}) => {
 
         http.post('/changeSize', {size}).then((response) => {
             setSizes([...response.data.allSizes]);
-
+            setSizeSelected(size);
         })
 
     }

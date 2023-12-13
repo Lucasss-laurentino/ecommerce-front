@@ -4,7 +4,6 @@ import InputMask from 'react-input-mask';
 import { useContext, useEffect, useState } from 'react';
 import { http } from '../../http/http';
 import { SizeContext } from '../../Contexts/SizeContext';
-import Size from '../../types/Size';
 import { LoginContext } from '../../Contexts/LoginContext';
 import { ModalProductInfoContext } from '../../Contexts/ModalProductInfoContext';
 
@@ -12,9 +11,9 @@ export const ModalProductInfo = () => {
 
     const { modalProductInfo, setModalProductInfo, productInfo } = useContext(ModalProductInfoContext);
 
-    const { getSizes, sizes, sizeSelect, sizeSelected, setSizeSelected, changeSizeSelect, resetSizes } = useContext(SizeContext);
+    const { getSizes, sizes, sizeSelected, changeSizeSelect, resetSizes } = useContext(SizeContext);
 
-    const { user } = useContext(LoginContext);
+    const { validateToken, user } = useContext(LoginContext)
 
     const [error, setError] = useState<string>('');
 
@@ -29,6 +28,12 @@ export const ModalProductInfo = () => {
     useEffect(() => {
         resetSizes(productInfo?._id);
     }, [modalProductInfo])
+
+    useEffect(() => {
+
+        validateToken();
+
+    })
 
 
     const [cep, setCep] = useState<string>('');
@@ -65,75 +70,11 @@ export const ModalProductInfo = () => {
         })
     }
 
-    const handleSize = (size: Size) => {
-
-        changeSizeSelect(size);
-        /*
-
-        setSizeSelected(size)
-
-        const previousSize = document.getElementById(size.size); // pegar elemento clicado
-
-        if (previousSize?.className) {
-
-            console.log(previousSize.className)
-
-            previousSize.className = 'bg-white text-dark h5 mx-2 border hover rounded-circle py-0 px-2';
-
-        }
-
-        const sizeMark = document.getElementById(size.size);
-
-        if (sizeMark?.className) {
-            sizeMark.className = 'text-white bg-dark h5 mx-2 border rounded-circle py-0 px-2';
-        }
-
-
-
-        if (sizeSelected) {
-
-            console.log(sizeSelected)
-
-            const previousSize = document.getElementById(sizeSelected.size); // pegar elemento clicado
-
-            if (previousSize?.className) {
-
-                console.log(previousSize.className)
-
-                previousSize.className = 'bg-white text-dark h5 mx-2 border hover rounded-circle py-0 px-2';
-
-            }
-
-            const sizeMark = document.getElementById(size.size);
-
-            if (sizeMark?.className) {
-                sizeMark.className = 'text-white bg-dark h5 mx-2 border rounded-circle py-0 px-2';
-            }
-
-        } else {
-
-     
-            sizeSelect(size);
-
-            const sizeMark = document.getElementById(size.size);
-
-            if (sizeMark?.className) {
-                sizeMark.className = 'text-white bg-dark h5 mx-2 border rounded-circle py-0 px-2';
-            }
-
-            setError('');
-
-        }
-        */
-
-    }
-
     const addProductToCart = () => {
         
-        if (sizeSelected) {
+        if (sizeSelected && user) {
 
             http.post('/addToCart', { productInfo, sizeSelected }).then((response) => {
-                console.log(response.data)
                 setError('');
                 setProductCart(true);
             }).catch(() => {
@@ -142,6 +83,10 @@ export const ModalProductInfo = () => {
                 setProductCart(false);
             
             });
+
+        } else if(!user) {
+
+            setError('Você precisa está logado');
 
         } else {
 
@@ -155,7 +100,6 @@ export const ModalProductInfo = () => {
          setModalProductInfo(false)
          setProductCart(false)
     }
-
 
     return (
 
@@ -220,7 +164,7 @@ export const ModalProductInfo = () => {
                                         <p className="text-muted d-flex mb-2">Tamanhos</p>
                                         {sizes?.map((size) => {
                                             return (
-                                                <p key={size._id} className={size.selected ? 'text-white bg-dark h5 mx-2 border rounded-circle py-0 px-2' : 'bg-white text-dark h5 mx-2 border hover rounded-circle py-0 px-2'} id={size.size} onClick={() => handleSize(size)}>{size.size}</p>
+                                                <p key={size._id} className={size.selected ? 'text-white bg-dark h5 mx-2 border rounded-circle py-0 px-2' : 'bg-white text-dark h5 mx-2 border hover rounded-circle py-0 px-2'} id={size.size} onClick={() => changeSizeSelect(size)}>{size.size}</p>
                                             )
                                         })}
                                     </div>

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './Menu.css';
 import { MenuContext } from '../../Contexts/MenuContext';
 import { LoginContext } from '../../Contexts/LoginContext';
@@ -15,7 +15,7 @@ export const Menu = () => {
 
     const { menu, setMenu } = useContext(MenuContext);
 
-    const { logout } = useContext(LoginContext)
+    const { logout, validateToken, user } = useContext(LoginContext)
 
     const { setCartaoModal } = useContext(CartaoContext);
 
@@ -26,6 +26,12 @@ export const Menu = () => {
     const [modalCreateProduct, setModalCreateProduct] = useState<boolean>(false);
 
     const [modalCategory, setModalCategory] = useState<boolean>(false);
+
+    useEffect(()=> {
+
+        validateToken()
+
+    }, [])
 
     return (
 
@@ -88,7 +94,7 @@ export const Menu = () => {
                             {localStorage.getItem('token') &&
 
                             <li className={menu ? "item-lista-menu item2" : "item-lista-menu-escondida item2"}>
-                                <a href='#' onClick={() => setCartaoModal(true)} className='texto-responsivo texto-login' >
+                                <a href='#' onClick={() => setCartaoModal(true)} className='texto-responsivo texto-login align-items-center' >
                                     <p className='m-0'>Meus cartões</p>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" className="bi bi-credit-card mx-1" viewBox="0 0 16 16">
                                         <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
@@ -99,6 +105,7 @@ export const Menu = () => {
                     
                             }
 
+                            {user?.adm &&
                             <>
                                 <li className={menu ? "item-lista-menu item4" : "item-lista-menu-escondida item4"}>
                                     <button className='texto-responsivo btn-item-menu-adm' onClick={() => setModalCategory(true)}>
@@ -115,7 +122,9 @@ export const Menu = () => {
                                         <p className='texto-responsivo m-0'>Cadastrar Produto</p>
                                     </button>
                                 </li>
+                                
                             </>
+                            }
                             {localStorage.getItem('token') &&
                             <li className={menu ? "item-lista-menu item7" : "item-lista-menu-escondida item7"}>
                                 <button onClick={logout} className='texto-responsivo btn-logout'>

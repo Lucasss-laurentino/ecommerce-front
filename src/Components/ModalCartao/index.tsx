@@ -32,6 +32,7 @@ export const ModalCartao = () => {
             data: dataCartao,
             cvc: cvcCartao,
             default: false,
+            user_id: '',
         }
 
         createCard(cartao);

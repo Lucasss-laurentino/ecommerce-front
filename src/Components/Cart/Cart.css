@@ -37,3 +37,25 @@
     list-style: none;
 
 }
+
+.div-btn-criar-endereco {
+    height: 9vh;
+    display: flex;
+    justify-content: center;
+}
+
+.perform-btn-criar-endereco {
+    width: 70%;
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+    color: #212529;
+}
+
+.perform-btn-criar-endereco:hover {
+
+    background-color: #212529;
+    color: white;
+    border: 1px solid white;
+
+}

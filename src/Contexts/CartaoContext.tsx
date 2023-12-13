@@ -27,11 +27,8 @@ export const CartaoContextProvider = ({children}: {children: JSX.Element}) => {
     const createCard = (card: Card) => {
 
         http.post('/createCard', {card}).then((response) => {
-
-            console.log(response.data)
-
             setCartaoModal(false);
-
+            getCardDefault();
         })
 
     }

@@ -5,4 +5,5 @@ export default interface Card {
     data: string,
     cvc: string,
     default: boolean,
+    user_id: string,
 }

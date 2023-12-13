@@ -1,6 +1,5 @@
 import { createContext, SetStateAction, useEffect, useState} from "react";
 import { http } from "../http/http";
-import Product from "../types/Product";
 import Cart from "../types/Cart";
 
 type CartType = {
@@ -42,7 +41,6 @@ export const CartProvider = ({ children }: { children: JSX.Element }) => {
     }
 
     const selectProduct = (cart: Cart) => {
-
         
         const checkbox = document.getElementById(cart.name_product);
 
@@ -89,9 +87,7 @@ export const CartProvider = ({ children }: { children: JSX.Element }) => {
     const resetQuantity = () => {
         
         http.post('/resetQuantity').then((response) => {
-          
             setCarts([...response.data.carts]);
-
         })
     
     }
@@ -100,10 +96,12 @@ export const CartProvider = ({ children }: { children: JSX.Element }) => {
         
         const cart_id = cart._id;
         
+       
         http.delete(`deleteCart/${cart_id}`).then((response) => {
             console.log(response.data)
             setCarts([...response.data]);
         })
+        
     
     }
 

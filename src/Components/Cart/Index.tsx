@@ -6,14 +6,17 @@ import { AddressContext } from '../../Contexts/AddressContext';
 import { CartaoContext } from '../../Contexts/CartaoContext';
 import Cards from 'react-credit-cards';
 import 'react-credit-cards/es/styles-compiled.css';
+import { LoginContext } from '../../Contexts/LoginContext';
 
 export const Cart = () => {
 
     const { getCarts, carts, selectProduct, resetQuantity, total, deleteCart } = useContext(CartContext);
 
-    const { setModalAddresses, getAddresses, addresses, getPriceDeliveryAddressDefault, priceDeliveryAddressDefault } = useContext(AddressContext);
+    const { setModalAddresses, getAddresses, addresses, priceDeliveryAddressDefault } = useContext(AddressContext);
 
     const { getCartoes, cartoes, setCartaoModal, cardDefaultState, getCardDefault } = useContext(CartaoContext);
+
+    const { validateToken } = useContext(LoginContext);
 
     useEffect(() => {
 
@@ -22,15 +25,15 @@ export const Cart = () => {
         getAddresses();
         getCardDefault();
         getCartoes();
+        validateToken();
         
-    }, [])
+    })
 
     useEffect(() => {
-        getPriceDeliveryAddressDefault()
+        //getPriceDeliveryAddressDefault()
     }, [addresses])
 
     const openModalAddresses = () => {
-
         setModalAddresses(true);
     }
     
@@ -75,6 +78,8 @@ export const Cart = () => {
                                                         </div>
                                                         <div className="col-5">
                                                             <h5 className='text_responsive'>{cart.name_product}</h5>
+
+                                                            
                                                         </div>
                                                     </div>
                                                     <div className="d-flex justify-content-end flex-row align-items-center col-3 col-lg-3 col-sm-3 col-md-4">
@@ -94,54 +99,30 @@ export const Cart = () => {
 
                     </div>
 
-                    {/* form cartao */}
+                    {/* cartao */}
                     <div className="col-lg-5 scroll-card-data mt-3">
-
                         <div className="card bg-dark text-white rounded-3">
                             <div className="card-body">
-                                
-                                { !cartoes ? 
-                                <form className="mt-4">
-                                    <div className="form-outline form-white mb-4">
-                                        <input type="text" id="typeName" className="form-control form-control-lg"
-                                            placeholder="" />
-                                        <label className="form-label" htmlFor="typeName">Nome impresso no cartão</label>
-                                    </div>
-                                    <div className="form-outline form-white mb-4">
-                                        <input type="text" id="" className="form-control form-control-lg"
-                                            placeholder="1234 5678 9012 3457" />
-                                        <label className="form-label" htmlFor="typeText">Número do cartão</label>
-                                    </div>
-                                    <div className="row mb-4">
-                                        <div className="col-md-6">
-                                            <div className="form-outline form-white">
-                                                <input type="text" id="typeExp" className="form-control form-control-lg"
-                                                    placeholder="00/00/0000" />
-                                                <label className="form-label" htmlFor="typeExp">Data de expiração</label>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div className="form-outline form-white">
-                                                <input type="password" id="typeText" className="form-control form-control-lg"
-                                                    placeholder="&#9679;&#9679;&#9679;" />
-                                                <label className="form-label" htmlFor="typeText">Cvc</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                
+                                {cartoes.length < 1 ? 
+
+                                <div className="container d-flex justify-content-center align-items-center">
+                                    <button className='btn btn-lg bg-white' onClick={() => setCartaoModal(true)}>
+                                        <p className='m-0 text-dark'>Cadastrar Cartão</p>
+                                    </button>
+                                </div>
+
+
                                 :
                                 
                                 <>
-
+                                {cardDefaultState &&
                                     <div className="container p-0">
                                         <div className="d-flex justify-content-end align-items-center">
                                             <button type='button' className='border border-dark bg-dark text-white text-decoration-underline' onClick={() => setCartaoModal(true)}>
                                                 Mudar
                                             </button>
                                         </div>
-                                            {cardDefaultState &&
-                                            <div key={cardDefaultState._id}>
+                                            <div  key={cardDefaultState._id}>
                                                 <Cards 
                                                 number={cardDefaultState.numero} 
                                                 name={cardDefaultState.nome} 
@@ -149,8 +130,8 @@ export const Cart = () => {
                                                 cvc={cardDefaultState.cvc} 
                                                 />
                                             </div>
-                                            }
                                     </div>
+                                }
                                 </>
                                 
                                 
@@ -160,9 +141,11 @@ export const Cart = () => {
 
                                 <div className="container p-0">
                                     <div className="d-flex justify-content-end align-items-center">
+                                        {addresses.length > 0 &&
                                         <button type='button' className='border border-dark bg-dark text-white text-decoration-underline' onClick={() => setModalAddresses(true)}>
                                             Mudar
                                         </button>
+                                        }
                                     </div>
                                     { addresses.map(address => {
                                         if (address.default) {
@@ -178,10 +161,22 @@ export const Cart = () => {
                                                     </ul>
                                                 </React.Fragment>
                                             )
+                                        } else {
+                                            return (<></>);
                                         }
                                     })}
                                     
-                                    {addresses.length === 0 && <button className='p-0 text-white w-100 text-center bg-dark border border-dark' onClick={openModalAddresses}><strong>Adicione um endereço</strong></button>}
+                                    {addresses.length === 0 && 
+                                        <div className="div-btn-criar-endereco">
+                                            <button 
+                                                className='perform-btn-criar-endereco' 
+                                                onClick={openModalAddresses}
+                                            >
+                                                <strong>Adicione um endereço</strong>
+                                            
+                                            </button>
+                                        </div>
+                                    }
                                     
                                 </div>
 
