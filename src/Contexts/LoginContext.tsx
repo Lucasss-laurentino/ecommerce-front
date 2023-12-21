@@ -39,7 +39,7 @@ export const LoginProvider = ({children}: {children: JSX.Element}) => {
     const validateToken = () => {
 
         http.post('/validateLogin').then((response) => {
-            setUser(response.data)
+            setUser(response.data.user)
         })
     
     }

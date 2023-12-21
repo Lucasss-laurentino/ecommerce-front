@@ -15,6 +15,7 @@ export default function ModalCategory({ modalCategory, setModalCategory }: Props
     const [name, setName] = useState<string>('');
     const [imageOne, setImageOne] = useState<File | null>(null);
     const [imageTwo, setImageTwo] = useState<File | null>(null);
+    const [erroCreateCategory, setErroCreateCategory] = useState('');
 
     const selectImageOne = (event: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -53,9 +54,17 @@ export default function ModalCategory({ modalCategory, setModalCategory }: Props
 
             createCategory(formData);
 
-        }
+            setName('');
 
-        setName('');
+        } else {
+
+            if(name == '' || name.length < 3){
+                setErroCreateCategory('Preencha o nome da categoria corretamente')
+            } else if (!imageOne || !imageTwo) {
+                setErroCreateCategory('Escolha duas imagens para a categoria')
+            }
+
+        }
         
     }
 
@@ -103,6 +112,7 @@ export default function ModalCategory({ modalCategory, setModalCategory }: Props
                         <input type="file" name="imageOne" className='form-control my-4' accept='image/*' onChange={selectImageOne}/>
                         <input type="file" name="imageTwo" className='form-control my-4' accept='image/*' onChange={selectImageTwo}/>
                         <button type='submit' className='btn-login'>Cadastrar</button>
+                        <p className="m-0 pt-3 text-danger text-center">{erroCreateCategory}</p>
                     </form>
                 </div>
             </Modal.Body>

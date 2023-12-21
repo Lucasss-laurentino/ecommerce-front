@@ -10,7 +10,7 @@ export const CreateUser = () => {
 
     const { menu, setMenu } = useContext(MenuContext);
 
-    const {createUser} = useContext(CreateUserContext);
+    const {createUser, erroCreateUser} = useContext(CreateUserContext);
 
     useEffect(() => {
 
@@ -42,6 +42,8 @@ export const CreateUser = () => {
                     {errors.passwordCreate && <p className='m-0 text-danger'>Campo obrigatório</p>}
 
                     <button type='submit' className='btn-login'>Cadastrar</button>
+
+                    <p className="m-0 pt-1 text-danger text-center">{erroCreateUser}</p>
 
                 </form>
             </div>

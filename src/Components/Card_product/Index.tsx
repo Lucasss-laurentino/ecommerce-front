@@ -36,7 +36,7 @@ export const Card_product = ({ product }: Props) => {
 
             <div className="card-product col-7 col-sm-4 col-md-3 col-lg-3 text-center m-2">
                 <div className="card-header bg-white">
-                    {user?.adm ?
+                    {user?.admin ?
                     <div className="d-flex justify-content-end">
                         <button className='color border border-white bg-white'>
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">

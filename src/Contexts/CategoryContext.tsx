@@ -33,11 +33,12 @@ export const CategoryProvider = ({children}: {children: JSX.Element}) => {
             },
             data: category
         }).then((response) => {
-            setCategories([...categories, response.data.category]);
-            getCategoryDefault();
+            
+            console.log(response.data)
+            //setCategories([...categories, response.data.category]);
+            //getCategoryDefault();
 
-        })
-        
+        })        
 
     }
 

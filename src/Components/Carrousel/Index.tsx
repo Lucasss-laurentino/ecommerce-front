@@ -7,14 +7,6 @@ export const Carrousel = () => {
 
     const { category, category_default } = useContext(CategoryContext);
 
-    /*
-    useEffect(() => {
-
-        getCategoryDefault();
-
-    }, []);
-    */
-
     return (
         <Carousel interval={2000} indicators={false}>
             <Carousel.Item>

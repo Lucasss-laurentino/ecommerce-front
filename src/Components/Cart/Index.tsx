@@ -16,7 +16,7 @@ export const Cart = () => {
 
     const { getCartoes, cartoes, setCartaoModal, cardDefaultState, getCardDefault } = useContext(CartaoContext);
 
-    const { validateToken } = useContext(LoginContext);
+    //const { validateToken } = useContext(LoginContext);
 
     useEffect(() => {
 
@@ -25,7 +25,7 @@ export const Cart = () => {
         getAddresses();
         getCardDefault();
         getCartoes();
-        validateToken();
+        //validateToken();
         
     })
 

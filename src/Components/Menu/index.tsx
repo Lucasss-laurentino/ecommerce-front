@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import './Menu.css';
 import { MenuContext } from '../../Contexts/MenuContext';
 import { LoginContext } from '../../Contexts/LoginContext';
@@ -15,7 +15,7 @@ export const Menu = () => {
 
     const { menu, setMenu } = useContext(MenuContext);
 
-    const { logout, validateToken, user } = useContext(LoginContext)
+    const { logout, user } = useContext(LoginContext)
 
     const { setCartaoModal } = useContext(CartaoContext);
 
@@ -26,12 +26,6 @@ export const Menu = () => {
     const [modalCreateProduct, setModalCreateProduct] = useState<boolean>(false);
 
     const [modalCategory, setModalCategory] = useState<boolean>(false);
-
-    useEffect(()=> {
-
-        validateToken()
-
-    }, [])
 
     return (
 
@@ -75,6 +69,9 @@ export const Menu = () => {
                         </li>
                         }
                         <>
+                            
+                            {user &&
+                            <>
                             <li className={menu ? "item-lista-menu item2" : "item-lista-menu-escondida item2"}>
                                 <Link to='/cart' className='texto-responsivo texto-login' onClick={() => setMenu(false)}>
                                     <p className='m-0'>Meus itens</p>
@@ -91,8 +88,6 @@ export const Menu = () => {
                                     </svg>
                                 </a>
                             </li>
-                            {localStorage.getItem('token') &&
-
                             <li className={menu ? "item-lista-menu item2" : "item-lista-menu-escondida item2"}>
                                 <a href='#' onClick={() => setCartaoModal(true)} className='texto-responsivo texto-login align-items-center' >
                                     <p className='m-0'>Meus cartões</p>
@@ -102,10 +97,10 @@ export const Menu = () => {
                                     </svg>
                                 </a>
                             </li>
-                    
+                            </>
                             }
 
-                            {user?.adm &&
+                            {user?.admin &&
                             <>
                                 <li className={menu ? "item-lista-menu item4" : "item-lista-menu-escondida item4"}>
                                     <button className='texto-responsivo btn-item-menu-adm' onClick={() => setModalCategory(true)}>

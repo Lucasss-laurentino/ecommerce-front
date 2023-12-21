@@ -96,7 +96,7 @@ export default function VitrineProduto() {
                             <React.Fragment key={product._id}>
                                 <li className="list-group-item card-product col-5 text-center m-2">
                                     <div className="card-header bg-white">
-                                        {user?.adm ?
+                                        {user?.admin ?
                                             <div className="d-flex justify-content-end">
                                                 <button className='color border border-white bg-white'>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">

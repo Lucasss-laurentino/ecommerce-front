@@ -13,7 +13,7 @@ export const ModalProductInfo = () => {
 
     const { getSizes, sizes, sizeSelected, changeSizeSelect, resetSizes } = useContext(SizeContext);
 
-    const { validateToken, user } = useContext(LoginContext)
+    const { user } = useContext(LoginContext)
 
     const [error, setError] = useState<string>('');
 
@@ -29,11 +29,13 @@ export const ModalProductInfo = () => {
         resetSizes(productInfo?._id);
     }, [modalProductInfo])
 
+    /*
     useEffect(() => {
 
         validateToken();
 
     })
+    */
 
 
     const [cep, setCep] = useState<string>('');
