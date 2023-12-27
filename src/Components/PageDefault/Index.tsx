@@ -17,7 +17,6 @@ export const PageDefault = () => {
         validateToken();
         getCategories();
         getCategoryDefault();
-        
 
     }, []);
     

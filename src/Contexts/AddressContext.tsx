@@ -28,7 +28,7 @@ export const AddressProvider = ({children}: {children: JSX.Element}) => {
 
     const getAddresses = () => {
 
-        http.get('/getAddresses').then((response) => {
+        http.get('/getAddresses').then((response: any) => {
             setAddresses([...response.data.addresses]);
         });
 
@@ -36,7 +36,7 @@ export const AddressProvider = ({children}: {children: JSX.Element}) => {
 
     const createAddress = (dataAddress: any) => {
 
-        http.post('/createAddress', { dataAddress }).then((response) => {
+        http.post('/createAddress', { dataAddress }).then((response: any) => {
             setAddresses([...addresses, response.data.newAddress]);
         });
 
@@ -89,6 +89,7 @@ export const AddressProvider = ({children}: {children: JSX.Element}) => {
 
         http.post('/defaultAddress', {address_id: address_id}).then((response) => {
 
+            console.log(response.data);
             setAddresses([...response.data]);
 
         })

@@ -19,19 +19,17 @@ export const LoginProvider = ({children}: {children: JSX.Element}) => {
 
     const login = (data: any) => {
     
+        
         const email = data.email;
         const password = data.password;
-    
+        
+        
         http.post('/login', {email, password}).then((response) => {
 
-                localStorage.setItem('token', response.data.token); 
-                window.location.href = '/';
+            localStorage.setItem('token', response.data.token); 
+            window.location.href = '/';
 
-            }).catch((response) => {
-
-                setErrorLogin('Login incorreto')
-
-            })
+        })
         
 
     }
