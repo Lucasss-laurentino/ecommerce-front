@@ -6,28 +6,26 @@ import { AddressContext } from '../../Contexts/AddressContext';
 import { CartaoContext } from '../../Contexts/CartaoContext';
 import Cards from 'react-credit-cards';
 import 'react-credit-cards/es/styles-compiled.css';
-import { LoginContext } from '../../Contexts/LoginContext';
 
 export const Cart = () => {
 
-    const { getCarts, carts, selectProduct, resetQuantity, total, deleteCart } = useContext(CartContext);
+    const {resetQuantity, getCarts, carts, selectProduct, total, deleteCart } = useContext(CartContext);
 
-    const { setModalAddresses, getAddresses, addresses, priceDeliveryAddressDefault } = useContext(AddressContext);
+    const { setModalAddresses, addresses, priceDeliveryAddressDefault } = useContext(AddressContext);
 
-    const { getCartoes, cartoes, setCartaoModal, cardDefaultState, getCardDefault } = useContext(CartaoContext);
-
-    //const { validateToken } = useContext(LoginContext);
+    const {getCardDefault, getCartoes, cartoes, setCartaoModal, cardDefaultState } = useContext(CartaoContext);
 
     useEffect(() => {
-
-        getCarts();
-        resetQuantity();
-        getAddresses();
-        getCardDefault();
-        getCartoes();
-        //validateToken();
         
-    })
+        getCarts();
+        
+        resetQuantity();
+        
+        getCardDefault();
+        
+        getCartoes();
+        
+    }, [])
 
     useEffect(() => {
         //getPriceDeliveryAddressDefault()
@@ -77,7 +75,7 @@ export const Cart = () => {
                                                                 className="img-fluid" alt="Shopping item" />
                                                         </div>
                                                         <div className="col-5">
-                                                            <h5 className='text_responsive'>{cart.name_product}</h5>
+                                                            <h5 className='text_responsive text-center'>{cart.name_product}</h5>
 
                                                             
                                                         </div>
@@ -102,7 +100,7 @@ export const Cart = () => {
                     {/* cartao */}
                     <div className="col-lg-5 scroll-card-data mt-3">
                         <div className="card bg-dark text-white rounded-3">
-                            <div className="card-body">
+                            <div className="card-body p-0">
                                 {cartoes.length < 1 ? 
 
                                 <div className="container d-flex justify-content-center align-items-center">
@@ -142,7 +140,7 @@ export const Cart = () => {
                                 <div className="container p-0">
                                     <div className="d-flex justify-content-end align-items-center">
                                         {addresses.length > 0 &&
-                                        <button type='button' className='border border-dark bg-dark text-white text-decoration-underline' onClick={() => setModalAddresses(true)}>
+                                        <button type='button' className='border border-dark bg-dark text-white px-2 text-decoration-underline' onClick={() => setModalAddresses(true)}>
                                             Mudar
                                         </button>
                                         }
@@ -151,7 +149,7 @@ export const Cart = () => {
                                         if (address.default) {
                                             return (
                                                 <React.Fragment key={address._id}>
-                                                    <ul className='list_addresses'>
+                                                    <ul className='list_addresses px-2'>
                                                         <li>Cep: {address.cep}</li>
                                                         <li>Estado: {address.state}</li>
                                                         <li>Múnicipio: {address.city}</li>
@@ -183,16 +181,16 @@ export const Cart = () => {
                                 <hr className="my-4" />
 
                                 <div className="d-flex justify-content-between">
-                                    <p className="mb-2">Total</p>
-                                    <p className="mb-2">R${total}</p>
+                                    <p className="mb-2 px-2">Total</p>
+                                    <p className="mb-2 px-2">R${total}</p>
                                 </div>
 
                                 <div className="d-flex justify-content-between">
-                                    <p className="mb-2">Envio</p>
-                                    <p className="mb-2">R${priceDeliveryAddressDefault}</p>
+                                    <p className="mb-2 px-2">Envio</p>
+                                    <p className="mb-2 px-2">R${priceDeliveryAddressDefault}</p>
                                 </div>
 
-                                <button type="button" className="btn bg-white btn-lg">
+                                <button type="button" className="btn m-2 bg-white btn-lg">
                                     <div className="d-flex justify-content-between">
                                         <span>Comprar<i className="fas fa-long-arrow-alt-right ms-2"></i></span>
                                     </div>

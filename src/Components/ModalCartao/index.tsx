@@ -14,7 +14,7 @@ export const ModalCartao = () => {
     const [dataCartao, setDataCartao] = useState('');
     const [cvcCartao, setCvcCartao] = useState('');
     const [gatilhoFormCards, setGatilhoFormsCards] = useState(false);
-    const [animeHidenFormCards, setAnimeHidenFormCards] = useState('scroll-cards');
+    const [animeHidenFormCards, setAnimeHidenFormCards] = useState('scroll-cards p-0');
     const [showForm, setShowForm] = useState('d-none');
 
     useEffect(() => {
@@ -53,27 +53,37 @@ export const ModalCartao = () => {
                 centered
             >
                 <Modal.Header closeButton onHide={() => setCartaoModal(false)}>
+             
                     <Modal.Title id="contained-modal-title-vcenter">
                         <p className="m-0 color font-garlicha h1">Cadastre um cartao</p>
                     </Modal.Title>
+             
                 </Modal.Header>
-                <Modal.Body>
+             
+                <Modal.Body className='p-0'>
+             
                     <div className={animeHidenFormCards}>
-                        <ul className='list-cards'>
-                        {cartoes.map((cartao) => { 
+             
+                        <ul className='list-cards m-0'>
+             
+                        {cartoes.length > 0 ? cartoes.map((cartao) => { 
+             
                             return (
+                            
                                 <React.Fragment key={cartao._id}>
+                                
                                 {cartoes &&
+                                
                                 <li  key={cartao._id} className='my-4'>
                                     <div className="d-flex justify-content-end">
-                                        <button type='button' className={cartao.default ? 'text-success border border-white bg-white' : 'text-muted border border-white bg-white'}
+                                        <button type='button' className={cartao.default ? 'btn btn-sm bg-success text-white m-2' : 'text-muted border border-white bg-white m-2'}
                                             onClick={() => {
                                                 cartaoDefault(cartao);
                                             }}
                                         >
                                             Escolher
                                         </button>
-                                        <button type='button' className='text-danger border border-white bg-white'>
+                                        <button type='button' className='text-danger border border-white bg-white m-2'>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" className="bi bi-trash3-fill" viewBox="0 0 16 16">
                                                 <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
                                             </svg>
@@ -89,9 +99,17 @@ export const ModalCartao = () => {
                                     
                                 </li>
                                 }
+                                
                                 </React.Fragment>
+                            
                             )
-                        })}
+                        }) : 
+
+                            <div className="container d-flex justify-content-center align-items-center">
+                                <h5 className='m-0 text-center'>Você não tem um cartão cadastrado</h5>
+                            </div>
+
+                        }
                         </ul>
                     </div>
 
@@ -101,7 +119,7 @@ export const ModalCartao = () => {
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-left-circle" viewBox="0 0 16 16"
                                     onClick={() => {
                                         setGatilhoFormsCards(false);
-                                        setAnimeHidenFormCards('scroll-cards')
+                                        setAnimeHidenFormCards('scroll-cards p-0')
                                         setShowForm('d-none')                                        
                                     }}
                                 >

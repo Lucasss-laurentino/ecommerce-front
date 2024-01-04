@@ -34,7 +34,7 @@ export const ProductProvider = ({children}: {children: JSX.Element}) => {
     const deleteProduct = (id_product: string) => {
         
         http.delete(`deleteProduct/${id_product}`).then((response) => {
-            setProducts([...response.data]);
+            setProducts([...response.data.products]);
         });
     
     }

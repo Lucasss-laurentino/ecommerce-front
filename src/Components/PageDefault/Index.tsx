@@ -5,11 +5,12 @@ import { LoginContext } from '../../Contexts/LoginContext';
 import './PageDefault.css';
 import { NavBar } from '../NavBar';
 import { Menu } from '../Menu';
+import { AddressContext } from '../../Contexts/AddressContext';
 
 export const PageDefault = () => {
 
     const { validateToken} = useContext(LoginContext);
-
+    const { getAddresses } = useContext(AddressContext);
     const { categories, getCategories, getCategoryDefault } = useContext(CategoryContext);
 
     useEffect(() => {
@@ -17,6 +18,7 @@ export const PageDefault = () => {
         validateToken();
         getCategories();
         getCategoryDefault();
+        getAddresses();
 
     }, []);
     

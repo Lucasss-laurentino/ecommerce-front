@@ -25,32 +25,26 @@ export const ModalAddress = ({ modalAddress, setModalAddress }: Props) => {
 
     const [classHidenAddress, setClassHidenAddress] = useState<string>('container scroll');
 
+    const [hidenAddresses, setHidenAddresses] = useState('container');
+
     const [classHidenBtn, setClassHidenBtn] = useState<string>('container d-flex justify-content-center');
 
     useEffect(() => {
 
-        getAddresses();
+        returnDefaultClasses()
 
-    });
-
-    useEffect(() => {
-
-        returnDefaultClasses();
-
-    }, [addresses])
+    }, [addresses]);
 
     const switchClasses = () => {
-        setClassHidenAddress('container scroll d-none')
+        setHidenAddresses('d-none')
         setClassHidenBtn('d-none')
         setClassShowForm('text-center d-block')
     }
 
     const returnDefaultClasses = () => {
-
-        setClassHidenAddress('container scroll')
+        setHidenAddresses('container')
         setClassHidenBtn('container d-flex justify-content-center')
         setClassShowForm('text-center d-none')
-
     }
 
     const searchCep = (e: any) => {
@@ -104,7 +98,8 @@ export const ModalAddress = ({ modalAddress, setModalAddress }: Props) => {
             </Modal.Header>
             <Modal.Body>
                 <div className="container">
-                    <div className="container">
+                    <div className={hidenAddresses}>
+                        {addresses.length > 0 &&
                         <ul className='scroll_address'>
                             {addresses?.map((address) => {
                                 return (
@@ -141,9 +136,9 @@ export const ModalAddress = ({ modalAddress, setModalAddress }: Props) => {
                                 )
                             })}
                         </ul>
+                        }
 
-
-                        {addresses.length === 0 && <h5 className='color text-center my-5'>Você não possui endereço cadastrado</h5>}
+                        {addresses.length === 0 && <h5 className='color text-center my-5'>Você não tem um endereço cadastrado</h5>}
 
                     </div>
 
@@ -230,7 +225,6 @@ export const ModalAddress = ({ modalAddress, setModalAddress }: Props) => {
                             </button>
                         </div>
                     </form>
-
 
                     <div className={classHidenBtn}>
                         <button className='btn-login w-100' onClick={switchClasses}>

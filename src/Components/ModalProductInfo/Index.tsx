@@ -27,15 +27,7 @@ export const ModalProductInfo = () => {
 
     useEffect(() => {
         resetSizes(productInfo?._id);
-    }, [modalProductInfo])
-
-    /*
-    useEffect(() => {
-
-        validateToken();
-
-    })
-    */
+    }, [modalProductInfo]);
 
 
     const [cep, setCep] = useState<string>('');

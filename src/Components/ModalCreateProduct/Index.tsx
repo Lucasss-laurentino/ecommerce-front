@@ -225,20 +225,17 @@ export const ModalCreateProduct = ({modalCreateProduct, setModalCreateProduct}: 
         
             }).then(response => {
 
-                console.log(response.data); 
                 setProducts([...response.data.products])
 
                 closeAndReset();
 
             });
-            
-        
+
         } else {
         
             setErrorCheckBox('Selecione pelo menos um tamanho')
         
-        }
-        
+        }   
 
     }
 
@@ -291,7 +288,7 @@ export const ModalCreateProduct = ({modalCreateProduct, setModalCreateProduct}: 
                                 className="input-form-login my-3"
                                 aria-label="Default select example"
                                 {...register("category", {
-                                    onChange: selectCategory
+                                    onChange: selectCategory,
                                 })}
                             >
 
